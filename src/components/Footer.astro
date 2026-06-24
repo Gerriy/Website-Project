@@ -1,0 +1,12 @@
+---
+import { siteCopy } from '../data/siteCopy';
+---
+
+<footer class="site-footer">
+  <div class="shell footer-grid">
+    <div><p class="footer-label">{siteCopy.footer.socialLabel}</p><p class="social-dots" aria-label="Social links coming soon">● ● ●</p></div>
+    <div><p class="footer-label">{siteCopy.footer.contactLabel}</p><a href={`mailto:${siteCopy.contact.email}`}>{siteCopy.contact.email}</a></div>
+    <p class="footer-message">{siteCopy.footer.message}</p>
+  </div>
+  <div class="shell footer-bottom">© <span data-year></span> {siteCopy.footer.copyrightSuffix}</div>
+</footer>

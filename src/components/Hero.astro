@@ -1,0 +1,31 @@
+---
+import AssetSlot from './AssetSlot.astro';
+import { siteCopy } from '../data/siteCopy';
+import { existsSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+
+const heroFile = fileURLToPath(new URL(`../../public/${siteCopy.hero.image}`, import.meta.url));
+const heroImageExists = existsSync(heroFile);
+---
+
+<section class:list={['hero', 'shell', { 'has-hero-image': heroImageExists }]} aria-labelledby="hero-title">
+  {heroImageExists ? (
+    <h1 id="hero-title" class="sr-only">{siteCopy.hero.titleFirst} {siteCopy.hero.titleSecond}</h1>
+  ) : (
+    <>
+      <p class="eyebrow reveal">{siteCopy.hero.traditionalChinese}</p>
+      <h1 id="hero-title" class="display-title reveal" style="--delay: 80ms">{siteCopy.hero.titleFirst}<span>·</span>{siteCopy.hero.titleSecond}</h1>
+    </>
+  )}
+  <AssetSlot
+    src={siteCopy.hero.image}
+    alt={siteCopy.hero.imageAlt}
+    label="Homepage hero / banner image"
+    hint="Place at public/assets/images/hero/home-hero.png"
+    class="hero-art reveal"
+    loading="eager"
+    fetchpriority="high"
+  />
+  {!heroImageExists && <p class="hero-note reveal" style="--delay: 220ms">{siteCopy.hero.note}<br />{siteCopy.hero.since}</p>}
+  <a class="scroll-cue" href="#about-preview" aria-label="Scroll to About us"><span>↓</span></a>
+</section>

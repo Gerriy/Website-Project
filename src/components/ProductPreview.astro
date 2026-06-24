@@ -1,0 +1,20 @@
+---
+import AssetSlot from './AssetSlot.astro';
+import ShopifyPlaceholder from './ShopifyPlaceholder.astro';
+import SectionHeading from './SectionHeading.astro';
+import { siteCopy } from '../data/siteCopy';
+---
+
+<section class="section shell catalogue-preview" aria-labelledby="catalogue-heading">
+  <div class="reveal"><SectionHeading kicker={siteCopy.catalogue.kicker} heading={siteCopy.catalogue.heading} id="catalogue-heading" /></div>
+  <p class="catalogue-intro reveal">{siteCopy.catalogue.body}</p>
+  <div class="product-grid">
+    {[1, 2, 3].map((number, index) => (
+      <article class="product-card reveal" style={`--delay: ${index * 70}ms`}>
+        <AssetSlot src={`assets/images/products/product-${number}.webp`} alt={`Future product ${number}`} label={`Product ${number}`} hint="Product image · 4:5 WebP" class="product-image" />
+        <div class="product-copy"><p class="product-name">Product title pending</p><span>Price pending</span></div>
+      </article>
+    ))}
+  </div>
+  <div class="reveal"><ShopifyPlaceholder /></div>
+</section>

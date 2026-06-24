@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import AssetSlot from '../components/AssetSlot.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import MemberGrid from '../components/MemberGrid.astro';
+import ProductPreview from '../components/ProductPreview.astro';
+import { siteCopy } from '../data/siteCopy';
+import { withBase } from '../utils/paths';
+---
+
+<BaseLayout title={siteCopy.metadata.homeTitle} description={siteCopy.metadata.homeDescription} page="home">
+  <Hero />
+  <div class="paper-field">
+    <section class="section shell" id="about-preview" aria-labelledby="about-heading">
+      <div class="reveal"><SectionHeading kicker={siteCopy.homeAbout.kicker} heading={siteCopy.homeAbout.heading} id="about-heading" /></div>
+      <div class="about-preview">
+        <AssetSlot src="assets/images/home/team-photo.webp" alt="Masta Dan team members together" label="Team photograph" hint="public/assets/images/home/team-photo.webp · 4:3" class="photo-slot reveal" />
+        <div class="prose reveal" style="--delay: 100ms">
+          <p class="lead">{siteCopy.homeAbout.lead}</p><p>{siteCopy.homeAbout.body}</p>
+          <p class="tc-placeholder">{siteCopy.homeAbout.traditionalChinese}</p>
+          <a class="text-link" href={withBase('about/')}>{siteCopy.homeAbout.linkLabel} <span>→</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section shell" aria-labelledby="members-heading">
+      <div class="reveal"><SectionHeading kicker={siteCopy.members.kicker} heading={siteCopy.members.heading} id="members-heading" /></div>
+      <p class="member-count reveal">{siteCopy.members.allMembersLabel}</p>
+      <MemberGrid />
+    </section>
+
+    <ProductPreview />
+
+    <section class="section contact-section shell" id="contact" aria-labelledby="contact-heading">
+      <div class="contact-copy reveal">
+        <SectionHeading kicker={siteCopy.contact.kicker} heading={siteCopy.contact.heading} id="contact-heading" align="left" />
+        <p>{siteCopy.contact.body}</p>
+        <div class="button-row"><a class="button" href="#">{siteCopy.contact.followLabel}</a><a class="button button-ghost" href={`mailto:${siteCopy.contact.email}`}>{siteCopy.contact.emailLabel}</a></div>
+      </div>
+      <AssetSlot src="assets/images/home/contact-art.webp" alt="Masta Dan contact illustration" label="Contact illustration or social feed" hint="public/assets/images/home/contact-art.webp · 16:10" class="contact-art reveal" />
+    </section>
+  </div>
+</BaseLayout>

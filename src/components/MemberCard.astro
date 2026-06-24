@@ -1,0 +1,18 @@
+---
+import type { Member } from '../data/members';
+import AssetSlot from './AssetSlot.astro';
+
+interface Props {
+  member: Member;
+  delay?: number;
+}
+const { member, delay = 0 } = Astro.props;
+---
+
+<article class="member-card reveal" style={`--delay: ${delay}ms`}>
+  <AssetSlot src={member.image} alt={`Portrait of ${member.name}`} label={member.name} hint="Member image · square PNG" class="portrait-slot" />
+  <h3>{member.name}</h3>
+  <p class="member-title">{member.traditionalChineseTitle}</p>
+  <p class="member-role">{member.role}</p>
+  {member.instagramUrl && <a class="member-social" href={member.instagramUrl}>Instagram ↗</a>}
+</article>

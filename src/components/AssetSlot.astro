@@ -1,0 +1,28 @@
+---
+import { withBase } from '../utils/paths';
+
+interface Props {
+  src: string;
+  alt: string;
+  label: string;
+  hint?: string;
+  class?: string;
+  loading?: 'eager' | 'lazy';
+  fetchpriority?: 'high' | 'low' | 'auto';
+}
+
+const {
+  src,
+  alt,
+  label,
+  hint,
+  class: className,
+  loading = 'lazy',
+  fetchpriority = 'auto',
+} = Astro.props;
+---
+
+<figure class:list={['asset-slot', className]} data-asset>
+  <img src={withBase(src)} alt={alt} loading={loading} fetchpriority={fetchpriority} />
+  <figcaption class="asset-placeholder"><span>{label}</span>{hint && <small>{hint}</small>}</figcaption>
+</figure>

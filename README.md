@@ -1,42 +1,102 @@
 # Masta Dan website
 
-Dependency-free static website prepared for GitHub Pages. The first release contains the homepage and About page, subtle reveal animations, responsive navigation and reserved UI for a later Shopify Buy Button integration.
+Astro-based static website for Masta Dan, prepared for GitHub Pages and a future Shopify Buy Button integration. The current release includes the homepage and About page. It uses Astro components and small browser-native scripts; React is intentionally not installed.
 
-## Preview locally
+## Requirements
 
-Any small static server will work. For example, if Python is installed:
+- Node.js 24 LTS
+- npm 11+
+
+## Commands
 
 ```powershell
-python -m http.server 8080
+npm install
+npm run dev
+npm run build
+npm run preview
 ```
 
-Then open `http://localhost:8080`.
+- `npm run dev` starts the editable local development server.
+- `npm run build` generates the production site in `dist/`.
+- `npm run preview` previews the completed production build.
 
-## Replace placeholder assets
+## Project structure
 
-Place optimized WebP images at the paths below. Placeholders disappear automatically when a valid image exists.
+```text
+src/
+  components/       Reusable header, footer, hero, members, CTA and shop previews
+  data/             Copy and member sources of truth
+  layouts/          Shared document layout
+  pages/            Homepage and About routes
+  scripts/          Navigation, image fallback and reveal behaviour
+  styles/           Shared responsive styling
+public/assets/      Images and other files copied directly to the built site
+reference/          Original design, sitemap and copy notes
+```
 
-| Slot | File path | Suggested shape |
-| --- | --- | --- |
-| Homepage character group | `assets/images/home/hero-characters.webp` | Wide transparent image, about 18:7 |
-| Homepage team photo | `assets/images/home/team-photo.webp` | 4:3 |
-| Homepage contact art | `assets/images/home/contact-art.webp` | 16:10 |
-| About group photo | `assets/images/about/group-photo.webp` | 3:2 |
-| Member portraits | `assets/images/members/{name}.webp` | 1:1, ideally 800 × 800 |
+## Hero/banner image
 
-Member filenames are `chowee.webp`, `yy.webp`, `p-chan.webp`, `gerri.webp`, `ahua.webp`, `popo.webp` and `ethan-yes.webp`.
+The current hero artwork is stored at:
 
-Update temporary copy, email and social links directly in `index.html` and `about/index.html` once final content is ready.
+```text
+public/assets/images/hero/home-hero.png
+```
 
-## GitHub Pages and custom domain
+Replace that file with another PNG using the same filename, or change `hero.image` in `src/data/siteCopy.ts` if the extension or filename changes. The Hero component checks for the file during the build. If it is missing, the page retains the text heading and displays a clearly labelled asset placeholder.
 
-1. Push the repository to GitHub.
-2. In **Settings → Pages**, deploy from the root of the main branch.
-3. Add the custom domain in the Pages settings.
-4. GitHub will create or request a `CNAME` file; keep that file in the repository root.
+## Other images
 
-Because the site has no build step, deployment is immediate and there are no package dependencies to maintain.
+Missing images do not remove content. Every image slot retains its size and displays a label until a valid file is available.
 
-## Shopify integration seam
+| Content | Location |
+| --- | --- |
+| Homepage team photo | `public/assets/images/home/team-photo.webp` |
+| Homepage contact art | `public/assets/images/home/contact-art.webp` |
+| About group photo | `public/assets/images/about/group-photo.webp` |
+| Product previews | `public/assets/images/products/product-1.webp` through `product-3.webp` |
+| Member portraits | `public/assets/images/members/{member-id}.png` |
 
-The navigation and cart position are reserved. When Shopify materials are ready, add the Buy Button sales channel script and mount its product/cart components into new `shopping/` pages. Shopify should remain responsible for secure checkout and payment.
+The seven current member filenames are `chowee.png`, `yy.png`, `p-chan.png`, `gerri.png`, `ahua.png`, `popo.png` and `ethan-yes.png`.
+
+## Edit copy and members
+
+- Update all shared English and Traditional Chinese copy in `src/data/siteCopy.ts`.
+- Update names, roles, image paths and Instagram URLs in `src/data/members.ts`.
+- The member grid is rendered from that data file on both pages, so all seven members remain synchronized.
+
+No corrected Traditional Chinese source document has been supplied yet. Unverified Chinese strings have been replaced with `[TC copy pending]`. Replace those markers only with approved Traditional Chinese copy; do not auto-translate or convert it to Simplified Chinese. See `reference/content/README.md`.
+
+## Shopify phase
+
+`ShopifyPlaceholder.astro` reserves the future integration boundary. Shopify product/card mounting can be added without replacing the existing Header, catalogue layout or pages. Shopify should continue to handle secure checkout and payment.
+
+## GitHub Pages deployment
+
+The included `.github/workflows/deploy.yml` builds and deploys the site whenever `master` or `main` is pushed. In the GitHub repository, open **Settings → Pages** and set the source to **GitHub Actions**.
+
+### GitHub project page
+
+For a URL such as `https://owner.github.io/repository-name/`, the workflow already supplies:
+
+```text
+SITE_URL=https://owner.github.io
+BASE_PATH=/repository-name
+```
+
+Locally, `BASE_PATH` defaults to `/`.
+
+### Custom domain
+
+When the custom domain is connected:
+
+1. Add the domain in **Settings → Pages** and follow GitHub's DNS instructions.
+2. Add `public/CNAME` containing only the domain name.
+3. Change the workflow environment to the custom origin and root base:
+
+```yaml
+env:
+  SITE_URL: https://www.example.com
+  BASE_PATH: /
+```
+
+`astro.config.mjs` reads both environment values, so no source component changes are needed.

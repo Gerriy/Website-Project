@@ -1,0 +1,13 @@
+---
+interface Props {
+  kicker: string;
+  heading: string;
+  id?: string;
+  align?: 'center' | 'left';
+}
+const { kicker, heading, id, align = 'center' } = Astro.props;
+---
+
+<div class:list={['section-heading', { 'section-heading-left': align === 'left' }]}>
+  <p class="kicker">{kicker}</p><h2 id={id}>{heading}</h2>
+</div>

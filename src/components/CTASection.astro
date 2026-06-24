@@ -1,0 +1,16 @@
+---
+import { withBase } from '../utils/paths';
+
+interface Props {
+  kicker: string;
+  heading: string;
+  body: string;
+  label: string;
+  href: string;
+}
+const { kicker, heading, body, label, href } = Astro.props;
+---
+
+<section class="section shell about-cta reveal">
+  <p class="kicker">{kicker}</p><h2>{heading}</h2><p>{body}</p><a class="button" href={withBase(href)}>{label}</a>
+</section>

@@ -1,0 +1,13 @@
+---
+import MemberCard from './MemberCard.astro';
+import { members } from '../data/members';
+
+interface Props {
+  class?: string;
+}
+const { class: className } = Astro.props;
+---
+
+<div class:list={['member-grid', className]}>
+  {members.map((member, index) => <MemberCard member={member} delay={(index % 3) * 70} />)}
+</div>

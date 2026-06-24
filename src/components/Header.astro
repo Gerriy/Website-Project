@@ -1,0 +1,36 @@
+---
+import { siteCopy } from '../data/siteCopy';
+import { withBase } from '../utils/paths';
+
+interface Props {
+  currentPage: 'home' | 'about';
+}
+
+const { currentPage } = Astro.props;
+const homeHref = withBase('');
+const aboutHref = withBase('about/');
+const contactHref = currentPage === 'home' ? '#contact' : withBase('index.html#contact');
+---
+
+<header class="site-header" data-header>
+  <div class="shell header-inner">
+    <a class="brand" href={homeHref} aria-label={`${siteCopy.brand.english} home`}>
+      <span class="brand-mark" aria-hidden="true"><span>MD</span><span>✦</span><span>✿</span><span>◎</span></span>
+      <span class="brand-name">{siteCopy.brand.traditionalChinese}</span>
+    </a>
+
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation">
+      <span class="sr-only">Toggle navigation</span><span></span><span></span><span></span>
+    </button>
+
+    <nav class="primary-nav" id="primary-navigation" aria-label="Primary navigation">
+      <a class:list={{ 'is-active': currentPage === 'home' }} href={homeHref} aria-current={currentPage === 'home' ? 'page' : undefined}>{siteCopy.navigation.home}</a>
+      <a class:list={{ 'is-active': currentPage === 'about' }} href={aboutHref} aria-current={currentPage === 'about' ? 'page' : undefined}>{siteCopy.navigation.about}</a>
+      <span class="future-link" title="Coming soon">{siteCopy.navigation.shopping} <small>{siteCopy.navigation.comingSoon}</small></span>
+      <a href={contactHref}>{siteCopy.navigation.contacts}</a>
+      <span class="future-link" title="Coming soon">{siteCopy.navigation.apps} <small>{siteCopy.navigation.comingSoon}</small></span>
+    </nav>
+
+    <button class="cart-reserve" type="button" disabled aria-label="Shopping cart, coming soon"><span aria-hidden="true">▣</span><small>0</small></button>
+  </div>
+</header>
