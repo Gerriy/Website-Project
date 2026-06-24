@@ -50,7 +50,8 @@ Missing images do not remove content. Every image slot retains its size and disp
 
 | Content | Location |
 | --- | --- |
-| Homepage team photo | `public/assets/images/home/team-photo.webp` |
+| Brand logo | `public/assets/images/brand/logo.png` |
+| Homepage team photo | `public/assets/images/home/team-photo.png` |
 | Homepage contact art | `public/assets/images/home/contact-art.webp` |
 | About group photo | `public/assets/images/about/group-photo.webp` |
 | Product previews | `public/assets/images/products/product-1.webp` through `product-3.webp` |
@@ -64,7 +65,7 @@ The seven current member filenames are `chowee.png`, `yy.png`, `p-chan.png`, `ge
 - Update names, roles, image paths and Instagram URLs in `src/data/members.ts`.
 - The member grid is rendered from that data file on both pages, so all seven members remain synchronized.
 
-No corrected Traditional Chinese source document has been supplied yet. Unverified Chinese strings have been replaced with `[TC copy pending]`. Replace those markers only with approved Traditional Chinese copy; do not auto-translate or convert it to Simplified Chinese. See `reference/content/README.md`.
+Approved Traditional Chinese member titles live in `src/data/members.ts`. Other unverified Chinese strings remain marked `[TC copy pending]`; replace those markers only with approved Traditional Chinese copy. The header reserves an EN / 繁中 control for dedicated language routes in a later phase. See `reference/content/README.md`.
 
 ## Shopify phase
 

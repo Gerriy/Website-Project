@@ -28,18 +28,11 @@ export const siteCopy = {
     imageAlt: 'The Masta Dan character team',
   },
   homeAbout: {
-    kicker: 'Who we are',
     heading: 'About us',
-    lead: 'We are Masta Dan, a seven-person creative team from Hong Kong.',
-    body:
-      'We bring original characters and stories to life through illustration, design and a healthy amount of playful chaos. This is temporary English copy while our final story is being prepared.',
     traditionalChinese: '[TC copy pending]',
-    linkLabel: 'Meet the whole team',
   },
   members: {
-    kicker: 'The people behind the pixels',
     heading: 'Members',
-    allMembersLabel: 'All seven members',
   },
   catalogue: {
     kicker: 'Future shop',
@@ -48,7 +41,6 @@ export const siteCopy = {
       'This section reserves the product-card rhythm for the Shopify phase. Products, prices and checkout are intentionally not live yet.',
   },
   contact: {
-    kicker: 'Say hello',
     heading: 'Contacts',
     body: 'Follow our progress, see new character work and find out what we are making next.',
     followLabel: 'Follow us',

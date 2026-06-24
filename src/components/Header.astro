@@ -12,11 +12,10 @@ const aboutHref = withBase('about/');
 const contactHref = currentPage === 'home' ? '#contact' : withBase('index.html#contact');
 ---
 
-<header class="site-header" data-header>
+<header class="site-header" id="top" data-header>
   <div class="shell header-inner">
     <a class="brand" href={homeHref} aria-label={`${siteCopy.brand.english} home`}>
-      <span class="brand-mark" aria-hidden="true"><span>MD</span><span>✦</span><span>✿</span><span>◎</span></span>
-      <span class="brand-name">{siteCopy.brand.traditionalChinese}</span>
+      <img class="brand-logo" src={withBase('assets/images/brand/logo.png')} alt="" />
     </a>
 
     <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation">
@@ -31,6 +30,11 @@ const contactHref = currentPage === 'home' ? '#contact' : withBase('index.html#c
       <span class="future-link" title="Coming soon">{siteCopy.navigation.apps} <small>{siteCopy.navigation.comingSoon}</small></span>
     </nav>
 
-    <button class="cart-reserve" type="button" disabled aria-label="Shopping cart, coming soon"><span aria-hidden="true">▣</span><small>0</small></button>
+    <div class="header-actions">
+      <div class="language-switch" aria-label="Language selection">
+        <span aria-current="true">EN</span><span aria-hidden="true">/</span><span aria-disabled="true" title="Traditional Chinese page coming soon">繁中</span>
+      </div>
+      <button class="cart-reserve" type="button" disabled aria-label="Shopping cart, coming soon"><span aria-hidden="true">▣</span><small>0</small></button>
+    </div>
   </div>
 </header>

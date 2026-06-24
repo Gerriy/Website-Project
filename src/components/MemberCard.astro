@@ -9,7 +9,7 @@ interface Props {
 const { member, delay = 0 } = Astro.props;
 ---
 
-<article class="member-card reveal" style={`--delay: ${delay}ms`}>
+<article class:list={['member-card', 'reveal', `member-card--${member.id}`]} style={`--delay: ${delay}ms`}>
   <AssetSlot src={member.image} alt={`Portrait of ${member.name}`} label={member.name} hint="Member image · square PNG" class="portrait-slot" />
   <h3>{member.name}</h3>
   <p class="member-title">{member.traditionalChineseTitle}</p>
