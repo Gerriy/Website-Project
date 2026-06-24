@@ -87,15 +87,17 @@ Locally, `BASE_PATH` defaults to `/`.
 
 ### Custom domain
 
-When the custom domain is connected:
+The production domain is configured as `https://mastadan.com` with a root base path. The deployment artifact includes `public/CNAME` for portability, although GitHub Pages custom Actions deployments also store the domain through the repository's Pages settings.
+
+To connect or update the custom domain:
 
 1. Add the domain in **Settings → Pages** and follow GitHub's DNS instructions.
-2. Add `public/CNAME` containing only the domain name.
-3. Change the workflow environment to the custom origin and root base:
+2. Keep `public/CNAME` containing only the domain name.
+3. Keep the workflow environment set to the custom origin and root base:
 
 ```yaml
 env:
-  SITE_URL: https://www.example.com
+  SITE_URL: https://mastadan.com
   BASE_PATH: /
 ```
 
