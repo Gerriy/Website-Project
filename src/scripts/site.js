@@ -73,7 +73,101 @@ document.querySelectorAll('[data-hero-stage]').forEach((stage) => {
     }
   });
 
-  if (!canFloat || reduceMotion || characters.length === 0) return;
+  if (characters.length === 0) return;
+
+  characters.forEach((character) => {
+    let holdTimer = 0;
+    let isDragging = false;
+    let pointerId = null;
+    let startPointerX = 0;
+    let startPointerY = 0;
+    let startDragX = 0;
+    let startDragY = 0;
+    let dragMinX = 0;
+    let dragMaxX = 0;
+    let dragMinY = 0;
+    let dragMaxY = 0;
+
+    const readOffset = (property) => Number.parseFloat(character.style.getPropertyValue(property)) || 0;
+    const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+
+    const clearHold = () => {
+      window.clearTimeout(holdTimer);
+      holdTimer = 0;
+      character.classList.remove('is-holding');
+    };
+
+    const stopDrag = () => {
+      clearHold();
+      if (isDragging) {
+        character.classList.remove('is-dragging');
+        stage.classList.remove('is-dragging-character');
+      }
+      isDragging = false;
+      pointerId = null;
+    };
+
+    character.addEventListener('pointerdown', (event) => {
+      if (event.button !== undefined && event.button !== 0) return;
+      if (character.classList.contains('is-missing')) return;
+
+      pointerId = event.pointerId;
+      startPointerX = event.clientX;
+      startPointerY = event.clientY;
+      startDragX = readOffset('--drag-x');
+      startDragY = readOffset('--drag-y');
+      character.style.setProperty('--repel-x', '0px');
+      character.style.setProperty('--repel-y', '0px');
+      character.classList.add('is-holding');
+
+      const stageRect = stage.getBoundingClientRect();
+      const characterRect = character.getBoundingClientRect();
+      const visibleMarginX = characterRect.width * 0.65;
+      const visibleMarginY = characterRect.height * 0.65;
+      dragMinX = stageRect.left - characterRect.left - visibleMarginX;
+      dragMaxX = stageRect.right - characterRect.right + visibleMarginX;
+      dragMinY = stageRect.top - characterRect.top - visibleMarginY;
+      dragMaxY = stageRect.bottom - characterRect.bottom + visibleMarginY;
+
+      character.setPointerCapture?.(event.pointerId);
+      holdTimer = window.setTimeout(() => {
+        isDragging = true;
+        character.classList.remove('is-holding');
+        character.classList.add('is-dragging');
+        stage.classList.add('is-dragging-character');
+      }, 220);
+    });
+
+    character.addEventListener('pointermove', (event) => {
+      if (pointerId !== event.pointerId) return;
+
+      const deltaX = event.clientX - startPointerX;
+      const deltaY = event.clientY - startPointerY;
+
+      if (!isDragging) {
+        if (Math.hypot(deltaX, deltaY) > 10) {
+          clearHold();
+          character.releasePointerCapture?.(event.pointerId);
+        }
+        return;
+      }
+
+      event.preventDefault();
+      character.style.setProperty('--drag-x', `${clamp(startDragX + deltaX, dragMinX, dragMaxX).toFixed(2)}px`);
+      character.style.setProperty('--drag-y', `${clamp(startDragY + deltaY, dragMinY, dragMaxY).toFixed(2)}px`);
+    });
+
+    character.addEventListener('pointerup', (event) => {
+      if (pointerId !== event.pointerId) return;
+      character.releasePointerCapture?.(event.pointerId);
+      stopDrag();
+    });
+
+    character.addEventListener('pointercancel', stopDrag);
+    character.addEventListener('lostpointercapture', stopDrag);
+  });
+
+  if (!canFloat || reduceMotion) return;
 
   let rafId = 0;
   let pointerX = 0;
@@ -81,6 +175,7 @@ document.querySelectorAll('[data-hero-stage]').forEach((stage) => {
 
   const resetRepel = () => {
     characters.forEach((character) => {
+      if (character.classList.contains('is-dragging')) return;
       character.style.setProperty('--repel-x', '0px');
       character.style.setProperty('--repel-y', '0px');
     });
@@ -91,6 +186,7 @@ document.querySelectorAll('[data-hero-stage]').forEach((stage) => {
 
     characters.forEach((character) => {
       if (character.classList.contains('is-missing')) return;
+      if (character.classList.contains('is-dragging')) return;
 
       const rect = character.getBoundingClientRect();
       const centerX = rect.left + rect.width / 2;
