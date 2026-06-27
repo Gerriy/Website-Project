@@ -1,15 +1,9 @@
-<section class="section shell shopify-buy-section" aria-labelledby="shopify-buy-heading">
-  <div class="shopify-shop-intro reveal">
-    <p class="kicker">Online shop</p>
-    <h2 id="shopify-buy-heading">Masta Dan goods</h2>
-    <p>Products are loaded through Shopify Buy Button and checkout is handled securely by Shopify.</p>
-  </div>
-
-  <div class="shopify-buy-panel reveal" style="--delay: 90ms">
+<section class="section shell shopify-buy-section" aria-label="Shopping products">
+  <div class="shopify-buy-panel reveal">
     <div id="collection-component-1782576872484" class="shopify-buy-mount"></div>
-    <p class="shopify-status" data-shopify-status>Loading Shopify products…</p>
+    <p class="shopify-status" data-shopify-status>Loading products…</p>
     <noscript>
-      <p class="shopify-status">Please enable JavaScript to view products and checkout with Shopify.</p>
+      <p class="shopify-status">Please enable JavaScript to view products and checkout.</p>
     </noscript>
   </div>
 </section>
@@ -31,9 +25,23 @@
       statusNode.classList.toggle('is-error', isError);
     };
 
+    const buttonStyles = {
+      'font-family': 'Nunito, Candara, sans-serif',
+      'font-size': '14px',
+      'font-weight': '900',
+      'padding-top': '15px',
+      'padding-bottom': '15px',
+      'background-color': '#4e98ef',
+      'border-radius': '999px',
+      ':hover': { 'background-color': '#4689d7' },
+      ':focus': { 'background-color': '#4689d7' },
+    };
+
+    const mutedText = { color: '#747d89' };
+
     const ShopifyBuyInit = () => {
       if (!window.ShopifyBuy || !window.ShopifyBuy.UI) {
-        setStatus('Shopify Buy Button could not load. Please refresh the page.', true);
+        setStatus('Products could not load. Please refresh the page.', true);
         return;
       }
 
@@ -42,227 +50,153 @@
         storefrontAccessToken: 'bf59ceedee547abd0dc0135180402dbd',
       });
 
-      window.ShopifyBuy.UI.onReady(client).then((ui) => {
-        setStatus('');
-        ui.createComponent('collection', {
-          id: '319229034543',
-          node: mountNode,
-          moneyFormat: '%24%7B%7Bamount%7D%7D',
-          options: {
-            product: {
-              styles: {
-                product: {
-                  'text-align': 'center',
-                  '@media (min-width: 601px)': {
-                    'max-width': 'calc(25% - 20px)',
-                    'margin-left': '20px',
-                    'margin-bottom': '50px',
-                    width: 'calc(25% - 20px)',
+      window.ShopifyBuy.UI.onReady(client)
+        .then((ui) => {
+          setStatus('');
+          ui.createComponent('collection', {
+            id: '319229034543',
+            node: mountNode,
+            moneyFormat: '%24%7B%7Bamount%7D%7D',
+            options: {
+              product: {
+                buttonDestination: 'modal',
+                contents: { options: false },
+                text: { button: 'View details' },
+                styles: {
+                  product: {
+                    'text-align': 'center',
+                    '@media (min-width: 601px)': {
+                      'max-width': 'calc(25% - 20px)',
+                      'margin-left': '20px',
+                      'margin-bottom': '50px',
+                      width: 'calc(25% - 20px)',
+                    },
                   },
-                },
-                img: {
-                  height: 'calc(100% - 15px)',
-                  position: 'absolute',
-                  left: '0',
-                  right: '0',
-                  top: '0',
-                },
-                imgWrapper: {
-                  'padding-top': 'calc(75% + 15px)',
-                  position: 'relative',
-                  height: '0',
-                },
-                title: {
-                  color: '#4e98ef',
-                  'font-family': 'Nunito, Candara, sans-serif',
-                  'font-size': '16px',
-                  'font-weight': '900',
-                },
-                button: {
-                  'font-family': 'Nunito, Candara, sans-serif',
-                  'font-size': '14px',
-                  'font-weight': '900',
-                  'padding-top': '15px',
-                  'padding-bottom': '15px',
-                  'background-color': '#4e98ef',
-                  'border-radius': '999px',
-                  ':hover': {
-                    'background-color': '#4689d7',
+                  img: {
+                    height: 'calc(100% - 15px)',
+                    position: 'absolute',
+                    left: '0',
+                    right: '0',
+                    top: '0',
                   },
-                  ':focus': {
-                    'background-color': '#4689d7',
+                  imgWrapper: {
+                    'padding-top': 'calc(75% + 15px)',
+                    position: 'relative',
+                    height: '0',
                   },
-                },
-                quantityInput: {
-                  'font-size': '14px',
-                  'padding-top': '15px',
-                  'padding-bottom': '15px',
-                },
-                price: {
-                  color: '#747d89',
-                  'font-family': 'Nunito, Candara, sans-serif',
-                },
-                compareAt: {
-                  color: '#747d89',
-                },
-                unitPrice: {
-                  color: '#747d89',
+                  title: {
+                    color: '#4e98ef',
+                    'font-family': 'Nunito, Candara, sans-serif',
+                    'font-size': '16px',
+                    'font-weight': '900',
+                  },
+                  button: buttonStyles,
+                  quantityInput: {
+                    'font-size': '14px',
+                    'padding-top': '15px',
+                    'padding-bottom': '15px',
+                  },
+                  price: {
+                    ...mutedText,
+                    'font-family': 'Nunito, Candara, sans-serif',
+                  },
+                  compareAt: mutedText,
+                  unitPrice: mutedText,
                 },
               },
-              buttonDestination: 'modal',
-              contents: {
-                options: false,
-              },
-              text: {
-                button: 'View details',
-              },
-            },
-            productSet: {
-              styles: {
-                products: {
-                  '@media (min-width: 601px)': {
-                    'margin-left': '-20px',
+              productSet: {
+                styles: {
+                  products: {
+                    '@media (min-width: 601px)': { 'margin-left': '-20px' },
                   },
                 },
               },
-            },
-            modalProduct: {
-              contents: {
-                img: false,
-                imgWithCarousel: true,
-                button: false,
-                buttonWithQuantity: true,
-              },
-              styles: {
-                product: {
-                  '@media (min-width: 601px)': {
-                    'max-width': '100%',
-                    'margin-left': '0px',
-                    'margin-bottom': '0px',
-                  },
+              modalProduct: {
+                contents: {
+                  img: false,
+                  imgWithCarousel: true,
+                  button: false,
+                  buttonWithQuantity: true,
                 },
-                button: {
-                  'font-family': 'Nunito, Candara, sans-serif',
-                  'font-size': '14px',
-                  'font-weight': '900',
-                  'padding-top': '15px',
-                  'padding-bottom': '15px',
-                  'background-color': '#4e98ef',
-                  'border-radius': '999px',
-                  ':hover': {
-                    'background-color': '#4689d7',
+                text: { button: 'Add to cart' },
+                styles: {
+                  product: {
+                    '@media (min-width: 601px)': {
+                      'max-width': '100%',
+                      'margin-left': '0px',
+                      'margin-bottom': '0px',
+                    },
                   },
-                  ':focus': {
-                    'background-color': '#4689d7',
+                  button: buttonStyles,
+                  title: {
+                    'font-family': 'Nunito, Candara, sans-serif',
+                    'font-weight': '900',
+                    'font-size': '26px',
+                    color: '#4c4c4c',
                   },
-                },
-                title: {
-                  'font-family': 'Nunito, Candara, sans-serif',
-                  'font-weight': '900',
-                  'font-size': '26px',
-                  color: '#4c4c4c',
-                },
-                price: {
-                  'font-family': 'Nunito, Candara, sans-serif',
-                  'font-size': '18px',
-                  color: '#747d89',
+                  price: {
+                    'font-family': 'Nunito, Candara, sans-serif',
+                    'font-size': '18px',
+                    color: '#747d89',
+                  },
                 },
               },
-              text: {
-                button: 'Add to cart',
-              },
-            },
-            modal: {
-              styles: {
-                modal: {
-                  'background-color': '#eaf0f8',
+              modal: {
+                styles: {
+                  modal: { 'background-color': '#eaf0f8' },
                 },
               },
-            },
-            cart: {
-              styles: {
-                button: {
-                  'font-family': 'Nunito, Candara, sans-serif',
-                  'font-size': '14px',
-                  'font-weight': '900',
-                  'padding-top': '15px',
-                  'padding-bottom': '15px',
-                  'background-color': '#4e98ef',
-                  'border-radius': '999px',
-                  ':hover': {
-                    'background-color': '#4689d7',
-                  },
-                  ':focus': {
-                    'background-color': '#4689d7',
-                  },
+              cart: {
+                text: {
+                  title: 'Cart',
+                  total: 'Subtotal',
+                  notice: '',
+                  button: 'Checkout',
                 },
-                title: { color: '#747d89' },
-                header: { color: '#747d89' },
-                lineItems: { color: '#747d89' },
-                subtotalText: { color: '#747d89' },
-                subtotal: { color: '#747d89' },
-                notice: { color: '#747d89' },
-                currency: { color: '#747d89' },
-                close: {
-                  color: '#747d89',
-                  ':hover': { color: '#747d89' },
+                styles: {
+                  button: buttonStyles,
+                  title: mutedText,
+                  header: mutedText,
+                  lineItems: mutedText,
+                  subtotalText: mutedText,
+                  subtotal: mutedText,
+                  notice: mutedText,
+                  currency: mutedText,
+                  close: { ...mutedText, ':hover': mutedText },
+                  empty: mutedText,
+                  cart: { 'background-color': '#eaf0f8' },
+                  footer: { 'background-color': '#eaf0f8' },
                 },
-                empty: { color: '#747d89' },
-                cart: { 'background-color': '#eaf0f8' },
-                footer: { 'background-color': '#eaf0f8' },
               },
-              text: {
-                title: 'Cart',
-                total: 'Subtotal',
-                notice: '',
-                button: 'Checkout',
-              },
-            },
-            toggle: {
-              styles: {
-                toggle: {
-                  'font-family': 'Nunito, Candara, sans-serif',
-                  'background-color': '#4e98ef',
-                  ':hover': {
-                    'background-color': '#4689d7',
+              toggle: {
+                styles: {
+                  toggle: {
+                    'font-family': 'Nunito, Candara, sans-serif',
+                    'background-color': '#4e98ef',
+                    ':hover': { 'background-color': '#4689d7' },
+                    ':focus': { 'background-color': '#4689d7' },
                   },
-                  ':focus': {
-                    'background-color': '#4689d7',
-                  },
+                  count: { 'font-size': '14px' },
                 },
-                count: {
-                  'font-size': '14px',
+              },
+              lineItem: {
+                styles: {
+                  variantTitle: mutedText,
+                  title: mutedText,
+                  price: mutedText,
+                  fullPrice: mutedText,
+                  discount: mutedText,
+                  discountIcon: { fill: '#747d89' },
+                  quantity: mutedText,
+                  quantityIncrement: { ...mutedText, 'border-color': '#747d89' },
+                  quantityDecrement: { ...mutedText, 'border-color': '#747d89' },
+                  quantityInput: { ...mutedText, 'border-color': '#747d89' },
                 },
               },
             },
-            lineItem: {
-              styles: {
-                variantTitle: { color: '#747d89' },
-                title: { color: '#747d89' },
-                price: { color: '#747d89' },
-                fullPrice: { color: '#747d89' },
-                discount: { color: '#747d89' },
-                discountIcon: { fill: '#747d89' },
-                quantity: { color: '#747d89' },
-                quantityIncrement: {
-                  color: '#747d89',
-                  'border-color': '#747d89',
-                },
-                quantityDecrement: {
-                  color: '#747d89',
-                  'border-color': '#747d89',
-                },
-                quantityInput: {
-                  color: '#747d89',
-                  'border-color': '#747d89',
-                },
-              },
-            },
-          },
-        });
-      }).catch(() => {
-        setStatus('Shopify products could not load. Please refresh the page.', true);
-      });
+          });
+        })
+        .catch(() => setStatus('Products could not load. Please refresh the page.', true));
     };
 
     const loadScript = () => {
@@ -270,16 +204,12 @@
       script.async = true;
       script.src = scriptURL;
       script.onload = ShopifyBuyInit;
-      script.onerror = () => setStatus('Shopify Buy Button could not load. Please refresh the page.', true);
+      script.onerror = () => setStatus('Products could not load. Please refresh the page.', true);
       (document.head || document.body).appendChild(script);
     };
 
     if (window.ShopifyBuy) {
-      if (window.ShopifyBuy.UI) {
-        ShopifyBuyInit();
-      } else {
-        loadScript();
-      }
+      window.ShopifyBuy.UI ? ShopifyBuyInit() : loadScript();
     } else {
       loadScript();
     }

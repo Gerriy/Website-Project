@@ -3,24 +3,35 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import AssetSlot from '../components/AssetSlot.astro';
 import MemberGrid from '../components/MemberGrid.astro';
 import SectionHeading from '../components/SectionHeading.astro';
-import CTASection from '../components/CTASection.astro';
 import { siteCopy } from '../data/siteCopy';
+
+const aboutCopy =
+  siteCopy.about.traditionalChinese === '[TC copy pending]'
+    ? siteCopy.homeAbout.traditionalChinese
+    : siteCopy.about.traditionalChinese;
 ---
 
 <BaseLayout title={siteCopy.metadata.aboutTitle} description={siteCopy.metadata.aboutDescription} page="about" paperMain>
-  <section class="page-hero shell">
-    <p class="eyebrow reveal">{siteCopy.about.eyebrow}</p><h1 class="reveal" style="--delay: 70ms">{siteCopy.about.heading}</h1><p class="page-intro reveal" style="--delay: 140ms">{siteCopy.about.intro}</p>
+  <section class="page-hero page-hero-compact shell" aria-labelledby="about-page-title">
+    <h1 id="about-page-title" class="reveal">MASTA DAN</h1>
   </section>
-  <section class="section shell story-section" aria-labelledby="story-heading">
-    <AssetSlot src="assets/images/about/group-photo.webp" alt="The Masta Dan team" label="Full team photograph" hint="public/assets/images/about/group-photo.webp · 3:2" class="story-photo reveal" />
-    <div class="prose reveal" style="--delay: 100ms">
-      <p class="kicker">{siteCopy.about.storyKicker}</p><h2 id="story-heading">{siteCopy.about.storyHeading}</h2><p class="lead">{siteCopy.about.storyLead}</p>
-      {siteCopy.about.storyBody.map((paragraph) => <p>{paragraph}</p>)}
-      <p class="tc-placeholder">{siteCopy.about.traditionalChinese}</p><a class="text-link" href="#members">Meet the members <span>↓</span></a>
+
+  <section class="section shell story-section story-section-simple" aria-labelledby="story-heading">
+    <AssetSlot
+      src="assets/images/home/team-photo.png"
+      alt="The Masta Dan team"
+      label="Full team photograph"
+      hint="public/assets/images/home/team-photo.png · 4:3"
+      class="story-photo reveal"
+    />
+    <div class="prose reveal story-copy-card" style="--delay: 100ms">
+      <h2 id="story-heading" class="sr-only">MASTA DAN introduction</h2>
+      <p class="tc-placeholder">{aboutCopy}</p>
     </div>
   </section>
+
   <section class="section shell" id="members" aria-labelledby="all-members-heading">
-    <div class="reveal"><SectionHeading kicker="Choose your character" heading="The members" id="all-members-heading" /></div><MemberGrid />
+    <div class="reveal"><SectionHeading heading="MEMBERS" id="all-members-heading" /></div>
+    <MemberGrid />
   </section>
-  <CTASection kicker={siteCopy.cta.kicker} heading={siteCopy.cta.heading} body={siteCopy.cta.body} label={siteCopy.cta.label} href="index.html#contact" />
 </BaseLayout>
