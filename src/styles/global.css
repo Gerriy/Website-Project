@@ -191,13 +191,13 @@ button, input, textarea { font: inherit; }
   .display-title { font-size: clamp(56px, 18vw, 115px); }
   .hero-stage { width: min(820px, 100%); aspect-ratio: 2 / 1; margin-top: 6px; }
   .hero-wordmark { top: 27%; width: 91.5%; }
-  .hero-character--geri { --hero-x: 0%; --hero-y: 31%; --hero-w: 19.1%; }
-  .hero-character--yy { --hero-x: 18.8%; --hero-y: 0.8%; --hero-w: 21.8%; }
-  .hero-character--ethan-yes { --hero-x: 31.8%; --hero-y: 49.2%; --hero-w: 16.8%; }
+  .hero-character--geri { --hero-x: -1.8%; --hero-y: 31%; --hero-w: 19.1%; }
+  .hero-character--yy { --hero-x: 19.2%; --hero-y: 2.2%; --hero-w: 21.1%; }
+  .hero-character--ethan-yes { --hero-x: 32.1%; --hero-y: 50.2%; --hero-w: 16.2%; }
   .hero-character--popo { --hero-x: 47%; --hero-y: 22%; --hero-w: 14%; }
-  .hero-character--ahua { --hero-x: 58.8%; --hero-y: 33%; --hero-w: 20.2%; }
+  .hero-character--ahua { --hero-x: 59%; --hero-y: 33.4%; --hero-w: 19.9%; }
   .hero-character--p-chan { --hero-x: 79.5%; --hero-y: 55%; --hero-w: 12.3%; }
-  .hero-character--chowee { --hero-x: 82.6%; --hero-y: 7.2%; --hero-w: 20%; }
+  .hero-character--chowee { --hero-x: 82.8%; --hero-y: 5.8%; --hero-w: 19.7%; }
   .about-preview, .story-section, .contact-section { grid-template-columns: 1fr; }
   .photo-slot { width: min(100%, 480px); }
   .contact-copy { order: 1; }
@@ -215,13 +215,13 @@ button, input, textarea { font: inherit; }
   .display-title { font-size: 18vw; text-shadow: 3px 3px 0 #d9eaff; }
   .hero-stage { width: min(680px, 130vw); aspect-ratio: 2 / 1; transform: translateX(-4%); }
   .hero-wordmark { top: 27%; width: 91.5%; }
-  .hero-character--geri { --hero-x: 0%; --hero-y: 31%; --hero-w: 19.1%; }
-  .hero-character--yy { --hero-x: 18.8%; --hero-y: 0.8%; --hero-w: 21.8%; }
-  .hero-character--ethan-yes { --hero-x: 31.8%; --hero-y: 49.2%; --hero-w: 16.8%; }
+  .hero-character--geri { --hero-x: -1.8%; --hero-y: 31%; --hero-w: 19.1%; }
+  .hero-character--yy { --hero-x: 19.2%; --hero-y: 2.2%; --hero-w: 21.1%; }
+  .hero-character--ethan-yes { --hero-x: 32.1%; --hero-y: 50.2%; --hero-w: 16.2%; }
   .hero-character--popo { --hero-x: 47%; --hero-y: 22%; --hero-w: 14%; }
-  .hero-character--ahua { --hero-x: 58.8%; --hero-y: 33%; --hero-w: 20.2%; }
+  .hero-character--ahua { --hero-x: 59%; --hero-y: 33.4%; --hero-w: 19.9%; }
   .hero-character--p-chan { --hero-x: 79.5%; --hero-y: 55%; --hero-w: 12.3%; }
-  .hero-character--chowee { --hero-x: 82.6%; --hero-y: 7.2%; --hero-w: 20%; }
+  .hero-character--chowee { --hero-x: 82.8%; --hero-y: 5.8%; --hero-w: 19.7%; }
   .hero-art { width: 100%; aspect-ratio: 1.7 / 1; margin-top: 5px; }
   .hero-art .asset-placeholder small { max-width: 220px; }
   .section { padding-block: 80px; }
