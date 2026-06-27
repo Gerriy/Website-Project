@@ -6,7 +6,7 @@ import '../styles/global.css';
 interface Props {
   title: string;
   description: string;
-  page: 'home' | 'about';
+  page: 'home' | 'about' | 'shop';
   paperMain?: boolean;
 }
 
@@ -31,7 +31,7 @@ const { title, description, page, paperMain = false } = Astro.props;
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
     <Header currentPage={page} />
-    <main id="main" class:list={{ 'paper-field': paperMain, 'about-page': page === 'about' }}>
+    <main id="main" class:list={{ 'paper-field': paperMain, 'about-page': page === 'about', 'shop-page': page === 'shop' }}>
       <slot />
     </main>
     <Footer />

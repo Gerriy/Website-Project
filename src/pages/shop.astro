@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ShopifyBuyButton from '../components/ShopifyBuyButton.astro';
+---
+
+<BaseLayout
+  title="Shopping · Masta Dan"
+  description="Shop Masta Dan goods through Shopify secure checkout."
+  page="shop"
+  paperMain
+>
+  <section class="page-hero shell shop-hero" aria-labelledby="shop-page-title">
+    <p class="kicker">Shopify checkout ready</p>
+    <h1 id="shop-page-title">Shopping</h1>
+    <p class="page-intro">
+      Browse the current collection below. Product pages, cart and checkout are handled through Shopify Buy Button.
+    </p>
+  </section>
+
+  <ShopifyBuyButton />
+
+  <a class="back-to-top" href="#top" aria-label="Back to top"></a>
+</BaseLayout>
