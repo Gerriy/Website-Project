@@ -76,32 +76,25 @@ document.querySelectorAll('[data-hero-stage]').forEach((stage) => {
   if (characters.length === 0) return;
 
   characters.forEach((character) => {
-    let holdTimer = 0;
     let isDragging = false;
     let pointerId = null;
     let startPointerX = 0;
     let startPointerY = 0;
-    let startDragX = 0;
-    let startDragY = 0;
     let dragMinX = 0;
     let dragMaxX = 0;
     let dragMinY = 0;
     let dragMaxY = 0;
 
-    const readOffset = (property) => Number.parseFloat(character.style.getPropertyValue(property)) || 0;
     const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
 
-    const clearHold = () => {
-      window.clearTimeout(holdTimer);
-      holdTimer = 0;
-      character.classList.remove('is-holding');
-    };
-
     const stopDrag = () => {
-      clearHold();
       if (isDragging) {
         character.classList.remove('is-dragging');
+        character.classList.add('is-returning');
+        character.style.setProperty('--drag-x', '0px');
+        character.style.setProperty('--drag-y', '0px');
         stage.classList.remove('is-dragging-character');
+        window.setTimeout(() => character.classList.remove('is-returning'), 360);
       }
       isDragging = false;
       pointerId = null;
@@ -114,11 +107,12 @@ document.querySelectorAll('[data-hero-stage]').forEach((stage) => {
       pointerId = event.pointerId;
       startPointerX = event.clientX;
       startPointerY = event.clientY;
-      startDragX = readOffset('--drag-x');
-      startDragY = readOffset('--drag-y');
       character.style.setProperty('--repel-x', '0px');
       character.style.setProperty('--repel-y', '0px');
-      character.classList.add('is-holding');
+      character.classList.remove('is-returning');
+      character.classList.add('is-dragging');
+      stage.classList.add('is-dragging-character');
+      isDragging = true;
 
       const stageRect = stage.getBoundingClientRect();
       const characterRect = character.getBoundingClientRect();
@@ -130,12 +124,6 @@ document.querySelectorAll('[data-hero-stage]').forEach((stage) => {
       dragMaxY = stageRect.bottom - characterRect.bottom + visibleMarginY;
 
       character.setPointerCapture?.(event.pointerId);
-      holdTimer = window.setTimeout(() => {
-        isDragging = true;
-        character.classList.remove('is-holding');
-        character.classList.add('is-dragging');
-        stage.classList.add('is-dragging-character');
-      }, 220);
     });
 
     character.addEventListener('pointermove', (event) => {
@@ -144,17 +132,9 @@ document.querySelectorAll('[data-hero-stage]').forEach((stage) => {
       const deltaX = event.clientX - startPointerX;
       const deltaY = event.clientY - startPointerY;
 
-      if (!isDragging) {
-        if (Math.hypot(deltaX, deltaY) > 10) {
-          clearHold();
-          character.releasePointerCapture?.(event.pointerId);
-        }
-        return;
-      }
-
       event.preventDefault();
-      character.style.setProperty('--drag-x', `${clamp(startDragX + deltaX, dragMinX, dragMaxX).toFixed(2)}px`);
-      character.style.setProperty('--drag-y', `${clamp(startDragY + deltaY, dragMinY, dragMaxY).toFixed(2)}px`);
+      character.style.setProperty('--drag-x', `${clamp(deltaX, dragMinX, dragMaxX).toFixed(2)}px`);
+      character.style.setProperty('--drag-y', `${clamp(deltaY, dragMinY, dragMaxY).toFixed(2)}px`);
     });
 
     character.addEventListener('pointerup', (event) => {
