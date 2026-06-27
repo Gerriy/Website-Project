@@ -13,7 +13,13 @@ import { siteCopy } from '../data/siteCopy';
     <section class="section shell" id="about-preview" aria-labelledby="about-heading">
       <div class="reveal"><SectionHeading heading={siteCopy.homeAbout.heading} id="about-heading" /></div>
       <div class="about-preview">
-        <AssetSlot src="assets/images/home/team-photo.png" alt="Masta Dan team members together at an event" label="Team photograph" hint="public/assets/images/home/team-photo.png · 4:3" class="photo-slot reveal" />
+        <AssetSlot
+          src="assets/images/home/team-photo.png"
+          alt="Masta Dan team members together at an event"
+          label="Team photograph"
+          hint="public/assets/images/home/team-photo.png · 4:3"
+          class="photo-slot reveal"
+        />
         <div class="prose reveal" style="--delay: 100ms">
           <p class="tc-placeholder">{siteCopy.homeAbout.traditionalChinese}</p>
         </div>
@@ -29,9 +35,18 @@ import { siteCopy } from '../data/siteCopy';
       <div class="contact-copy reveal">
         <SectionHeading heading={siteCopy.contact.heading} id="contact-heading" align="left" />
         <p>{siteCopy.contact.body}</p>
-        <div class="button-row"><a class="button" href="#">{siteCopy.contact.followLabel}</a><a class="button button-ghost" href={`mailto:${siteCopy.contact.email}`}>{siteCopy.contact.emailLabel}</a></div>
+        <div class="button-row">
+          <a class="button" href="https://www.instagram.com/masta_dan_/" target="_blank" rel="noopener noreferrer">{siteCopy.contact.followLabel}</a>
+          <a class="button button-ghost" href={`mailto:${siteCopy.contact.email}`}>{siteCopy.contact.emailLabel}</a>
+        </div>
       </div>
-      <AssetSlot src="assets/images/home/contact-art.webp" alt="Masta Dan contact illustration" label="Contact illustration or social feed" hint="public/assets/images/home/contact-art.webp · 16:10" class="contact-art reveal" />
+      <AssetSlot
+        src="assets/images/home/contact-art.png"
+        alt="Masta Dan contact illustration"
+        label="Contact illustration or social feed"
+        hint="public/assets/images/home/contact-art.png · 16:10"
+        class="contact-art reveal"
+      />
     </section>
     <a class="back-to-top" href="#top" aria-label="Back to top"></a>
   </div>
