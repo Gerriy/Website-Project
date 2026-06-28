@@ -79,13 +79,15 @@ import { withBase } from '../utils/paths';
 </section>
 
 <script id="shop-collections-data" type="application/json" set:html={JSON.stringify(themeCollections)}></script>
+<script id="shop-creators-data" type="application/json" set:html={JSON.stringify(creatorFilters)}></script>
 
 <script is:inline>
   (() => {
     const componentId = 'collection-component-1782576872484';
     const mountNode = document.getElementById(componentId);
     const statusNode = document.querySelector('[data-shopify-status]');
-    const dataNode = document.getElementById('shop-collections-data');
+    const collectionDataNode = document.getElementById('shop-collections-data');
+    const creatorDataNode = document.getElementById('shop-creators-data');
     const dropdown = document.querySelector('[data-shop-filter-dropdown]');
     const dropdownTrigger = document.querySelector('[data-shop-filter-trigger]');
     const dropdownMenu = document.querySelector('[data-shop-filter-menu]');
@@ -95,9 +97,10 @@ import { withBase } from '../utils/paths';
     const creatorButtons = Array.from(document.querySelectorAll('[data-shop-creator]'));
     const filterGroups = Array.from(document.querySelectorAll('[data-shop-filter-group]'));
     const scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
-    const collections = dataNode ? JSON.parse(dataNode.textContent || '[]') : [];
+    const collections = collectionDataNode ? JSON.parse(collectionDataNode.textContent || '[]') : [];
+    const creators = creatorDataNode ? JSON.parse(creatorDataNode.textContent || '[]') : [];
     let activeComponent = null;
-    let activeSlug = '';
+    let activeKey = '';
     let shopifyUi = null;
 
     if (!mountNode || mountNode.dataset.shopifyMounted === 'true') return;
@@ -142,7 +145,7 @@ import { withBase } from '../utils/paths';
     const clearActiveComponent = () => {
       activeComponent?.destroy?.();
       activeComponent = null;
-      activeSlug = '';
+      activeKey = '';
       mountNode.replaceChildren();
     };
 
@@ -161,7 +164,7 @@ import { withBase } from '../utils/paths';
       }
 
       const defaultCollection = collections.find((collection) => collection.isDefault) || collections[0];
-      renderCollection(defaultCollection);
+      renderCollection(defaultCollection, 'theme');
     };
 
     const buttonStyles = {
@@ -195,27 +198,29 @@ import { withBase } from '../utils/paths';
       return match?.[1] || '';
     };
 
-    const resolveCollectionId = async (collection) => {
-      if (collection.collectionId) return collection.collectionId;
-      if (!collection.snippetPath) return '';
+    const resolveCollectionId = async (item) => {
+      if (item.collectionId) return item.collectionId;
+      if (!item.snippetPath) return '';
 
-      const response = await fetch(collection.snippetPath, { cache: 'no-store' });
+      const response = await fetch(item.snippetPath, { cache: 'no-store' });
       if (!response.ok) return '';
       return extractCollectionId(await response.text());
     };
 
-    const renderCollection = async (collection) => {
-      if (!collection || !shopifyUi) return;
-      if (activeSlug === collection.slug) return;
+    const renderCollection = async (item, source = 'theme') => {
+      if (!item || !shopifyUi) return;
 
-      activeSlug = collection.slug;
-      setActiveCollectionButton(collection.slug);
+      const nextKey = `${source}:${item.slug}`;
+      if (activeKey === nextKey) return;
+
+      activeKey = nextKey;
+      source === 'creator' ? setActiveCreatorButton(item.slug) : setActiveCollectionButton(item.slug);
       activeComponent?.destroy?.();
       activeComponent = null;
       mountNode.replaceChildren();
       setStatus('商品載入中…');
 
-      const collectionId = await resolveCollectionId(collection);
+      const collectionId = await resolveCollectionId(item);
       if (!collectionId) {
         setStatus('準備中...');
         return;
@@ -378,7 +383,7 @@ import { withBase } from '../utils/paths';
         .then((ui) => {
           shopifyUi = ui;
           const defaultCollection = collections.find((collection) => collection.isDefault) || collections[0];
-          renderCollection(defaultCollection);
+          renderCollection(defaultCollection, 'theme');
         })
         .catch(() => setStatus('商品未能載入，請重新整理頁面。', true));
     };
@@ -411,15 +416,14 @@ import { withBase } from '../utils/paths';
     collectionButtons.forEach((button) => {
       button.addEventListener('click', () => {
         const nextCollection = collections.find((collection) => collection.slug === button.dataset.shopCollection);
-        renderCollection(nextCollection);
+        renderCollection(nextCollection, 'theme');
       });
     });
 
     creatorButtons.forEach((button) => {
       button.addEventListener('click', () => {
-        setActiveCreatorButton(button.dataset.shopCreator);
-        clearActiveComponent();
-        setStatus('準備中...');
+        const nextCreator = creators.find((creator) => creator.slug === button.dataset.shopCreator);
+        renderCollection(nextCreator, 'creator');
       });
     });
 
