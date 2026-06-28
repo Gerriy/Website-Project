@@ -44,6 +44,7 @@ button, input, textarea { font: inherit; }
 .language-switch { display: flex; align-items: center; gap: 5px; color: #a1a8b2; font-size: 10px; font-weight: 900; letter-spacing: .07em; white-space: nowrap; }
 .language-switch [aria-current="true"] { color: var(--blue); }
 .language-switch [aria-disabled="true"] { cursor: not-allowed; }
+.language-switch small { margin-left: 3px; padding: 1px 5px; color: #fff; background: var(--blue); border-radius: 999px; font-size: 7px; letter-spacing: .04em; text-transform: uppercase; vertical-align: middle; }
 .menu-toggle { display: none; width: 46px; height: 46px; padding: 11px; background: transparent; border: 0; }
 .menu-toggle > span:not(.sr-only) { display: block; height: 2px; margin: 5px 0; background: var(--ink); transition: transform .2s, opacity .2s; }
 
@@ -151,11 +152,15 @@ button, input, textarea { font: inherit; }
 .shopify-shop-intro h2 { margin: 0; color: var(--blue); font-family: var(--display); font-size: clamp(34px, 5vw, 64px); font-weight: 900; line-height: 1; text-transform: uppercase; }
 .shopify-shop-intro p:not(.kicker) { max-width: 580px; margin: 18px auto 0; color: var(--muted); }
 .shop-filter-panel { margin: 0 auto 32px; padding: clamp(20px, 3vw, 30px); background: rgba(255,255,255,.62); border: 2px solid #fff; border-radius: 28px; box-shadow: 0 14px 40px rgba(53,98,150,.09); text-align: center; }
-.shop-filter-label { margin: 0 0 16px; color: var(--blue); font-family: var(--display); font-size: clamp(22px, 3vw, 34px); font-weight: 900; letter-spacing: -.035em; line-height: 1; text-transform: uppercase; }
+.shop-filter-select-label { position: relative; width: min(280px, 100%); margin: 0 auto 18px; display: block; }
+.shop-filter-select-label::after { content: "⌄"; position: absolute; top: 50%; right: 18px; color: #fff; font-size: 16px; font-weight: 900; pointer-events: none; transform: translateY(-55%); }
+.shop-filter-select { width: 100%; min-height: 52px; padding: 0 48px 0 24px; color: #fff; background: var(--blue); border: 0; border-radius: 999px; appearance: none; cursor: pointer; font-family: var(--display); font-size: clamp(20px, 2.5vw, 30px); font-weight: 900; letter-spacing: -.025em; text-align: center; box-shadow: 0 8px 0 rgba(78,152,239,.16); }
+.shop-filter-select:focus-visible { outline: 3px solid rgba(78,152,239,.35); outline-offset: 4px; }
 .shop-filter-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
 .shop-filter-button { min-height: 42px; padding: 9px 18px; color: var(--blue-dark); background: rgba(255,255,255,.86); border: 2px solid rgba(78,152,239,.22); border-radius: 999px; cursor: pointer; font-size: 13px; font-weight: 900; letter-spacing: .02em; box-shadow: 0 5px 0 rgba(78,152,239,.08); transition: transform .18s ease, box-shadow .18s ease, color .18s ease, background .18s ease, border-color .18s ease; }
 .shop-filter-button:hover, .shop-filter-button:focus-visible { color: #fff; background: var(--blue); border-color: var(--blue); transform: translateY(-2px); box-shadow: 0 8px 0 rgba(78,152,239,.12); }
 .shop-filter-button[aria-pressed="true"] { color: #fff; background: var(--blue); border-color: var(--blue); box-shadow: 0 8px 0 rgba(78,152,239,.16); }
+.shop-filter-empty { margin: 18px 0 0; color: var(--blue-dark); font-size: 14px; font-weight: 900; }
 .shopify-buy-panel { min-height: 280px; padding: clamp(22px, 4vw, 40px); background: rgba(255,255,255,.72); border: 2px solid #fff; border-radius: 35px; box-shadow: var(--shadow); }
 .shopify-buy-mount { min-height: 180px; }
 .shopify-status { margin: 18px 0 0; color: var(--muted); text-align: center; font-size: 13px; font-weight: 800; }

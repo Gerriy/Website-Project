@@ -4,8 +4,15 @@ import { themeCollections } from '../data/shopCollections';
 
 <section class="section shell shopify-buy-section" aria-label="Shopping products">
   <div class="shop-filter-panel reveal" aria-label="Shop filters">
-    <p class="shop-filter-label">Theme / 作品</p>
-    <div class="shop-filter-buttons" role="group" aria-label="Theme collections">
+    <label class="shop-filter-select-label" for="shop-filter-mode">
+      <span class="sr-only">選擇商品分類方式</span>
+      <select id="shop-filter-mode" class="shop-filter-select" data-shop-filter-mode>
+        <option value="theme" selected>作品分類</option>
+        <option value="creator">創作者分類</option>
+      </select>
+    </label>
+
+    <div class="shop-filter-buttons" role="group" aria-label="作品分類" data-shop-filter-group="theme">
       {themeCollections.map((collection) => (
         <button
           class="shop-filter-button"
@@ -17,14 +24,15 @@ import { themeCollections } from '../data/shopCollections';
         </button>
       ))}
     </div>
-    <!-- Creator / 創作者 filter row is reserved for the next phase. -->
+
+    <p class="shop-filter-empty" data-shop-filter-group="creator" hidden>創作者分類準備中</p>
   </div>
 
   <div class="shopify-buy-panel reveal" style="--delay: 90ms">
     <div id="collection-component-1782576872484" class="shopify-buy-mount"></div>
-    <p class="shopify-status" data-shopify-status>Loading products…</p>
+    <p class="shopify-status" data-shopify-status>商品載入中…</p>
     <noscript>
-      <p class="shopify-status">Please enable JavaScript to view products and checkout.</p>
+      <p class="shopify-status">請啟用 JavaScript 以查看商品及結帳。</p>
     </noscript>
   </div>
 </section>
@@ -37,7 +45,9 @@ import { themeCollections } from '../data/shopCollections';
     const mountNode = document.getElementById(componentId);
     const statusNode = document.querySelector('[data-shopify-status]');
     const dataNode = document.getElementById('shop-collections-data');
+    const filterModeSelect = document.querySelector('[data-shop-filter-mode]');
     const filterButtons = Array.from(document.querySelectorAll('[data-shop-collection]'));
+    const filterGroups = Array.from(document.querySelectorAll('[data-shop-filter-group]'));
     const scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
     const collections = dataNode ? JSON.parse(dataNode.textContent || '[]') : [];
     let activeComponent = null;
@@ -58,6 +68,25 @@ import { themeCollections } from '../data/shopCollections';
       filterButtons.forEach((button) => {
         button.setAttribute('aria-pressed', String(button.dataset.shopCollection === slug));
       });
+    };
+
+    const setFilterMode = (mode) => {
+      filterGroups.forEach((group) => {
+        group.hidden = group.dataset.shopFilterGroup !== mode;
+      });
+
+      if (mode === 'creator') {
+        setStatus('創作者分類準備中', true);
+        return;
+      }
+
+      const defaultCollection = collections.find((collection) => collection.isDefault) || collections[0];
+      if (activeSlug === defaultCollection?.slug) {
+        setActiveButton(defaultCollection.slug);
+        setStatus('');
+        return;
+      }
+      renderCollection(defaultCollection);
     };
 
     const buttonStyles = {
@@ -113,11 +142,11 @@ import { themeCollections } from '../data/shopCollections';
       activeSlug = collection.slug;
       setActiveButton(collection.slug);
       clearActiveComponent();
-      setStatus('Loading products…');
+      setStatus('商品載入中…');
 
       const collectionId = await resolveCollectionId(collection);
       if (!collectionId) {
-        setStatus('This collection is not ready yet.', true);
+        setStatus('此分類尚未準備好。', true);
         return;
       }
 
@@ -129,7 +158,7 @@ import { themeCollections } from '../data/shopCollections';
           product: {
             buttonDestination: 'modal',
             contents: { options: false },
-            text: { button: 'View details' },
+            text: { button: '查看詳情' },
             styles: {
               product: {
                 'text-align': 'center',
@@ -182,7 +211,7 @@ import { themeCollections } from '../data/shopCollections';
               button: false,
               buttonWithQuantity: true,
             },
-            text: { button: 'Add to cart' },
+            text: { button: '加入購物車' },
             styles: {
               product: {
                 '@media (min-width: 601px)': {
@@ -213,10 +242,10 @@ import { themeCollections } from '../data/shopCollections';
           },
           cart: {
             text: {
-              title: 'Cart',
-              total: 'Subtotal',
+              title: '購物車',
+              total: '小計',
               notice: '',
-              button: 'Checkout',
+              button: '結帳',
             },
             styles: {
               button: buttonStyles,
@@ -265,7 +294,7 @@ import { themeCollections } from '../data/shopCollections';
 
     const ShopifyBuyInit = () => {
       if (!window.ShopifyBuy || !window.ShopifyBuy.UI) {
-        setStatus('Products could not load. Please refresh the page.', true);
+        setStatus('商品未能載入，請重新整理頁面。', true);
         return;
       }
 
@@ -280,7 +309,7 @@ import { themeCollections } from '../data/shopCollections';
           const defaultCollection = collections.find((collection) => collection.isDefault) || collections[0];
           renderCollection(defaultCollection);
         })
-        .catch(() => setStatus('Products could not load. Please refresh the page.', true));
+        .catch(() => setStatus('商品未能載入，請重新整理頁面。', true));
     };
 
     const loadScript = () => {
@@ -288,9 +317,11 @@ import { themeCollections } from '../data/shopCollections';
       script.async = true;
       script.src = scriptURL;
       script.onload = ShopifyBuyInit;
-      script.onerror = () => setStatus('Products could not load. Please refresh the page.', true);
+      script.onerror = () => setStatus('商品未能載入，請重新整理頁面。', true);
       (document.head || document.body).appendChild(script);
     };
+
+    filterModeSelect?.addEventListener('change', () => setFilterMode(filterModeSelect.value));
 
     filterButtons.forEach((button) => {
       button.addEventListener('click', () => {
