@@ -20,6 +20,9 @@ jobs:
     env:
       SITE_URL: https://mastadan.com
       BASE_PATH: /
+      PUBLIC_SHOPIFY_DOMAIN: q1h1fd-1k.myshopify.com
+      PUBLIC_SHOPIFY_STOREFRONT_TOKEN: ${{ secrets.PUBLIC_SHOPIFY_STOREFRONT_TOKEN }}
+      PUBLIC_SHOPIFY_API_VERSION: 2026-04
     steps:
       - name: Checkout
         uses: actions/checkout@v4

@@ -1,6 +1,6 @@
 # Masta Dan website
 
-Astro-based static website for Masta Dan, prepared for GitHub Pages and a future Shopify Buy Button integration. The current release includes the homepage and About page. It uses Astro components and small browser-native scripts; React is intentionally not installed.
+Astro-based static website for Masta Dan, prepared for GitHub Pages and Shopify commerce. The live shop currently uses Shopify Buy Button, while a hidden Storefront API lab route is being built with a small React island for product search, modal, cart and checkout state.
 
 ## Requirements
 
@@ -24,8 +24,9 @@ npm run preview
 
 ```text
 src/
-  components/       Reusable header, footer, hero, members, CTA and shop previews
+  components/       Reusable header, footer, hero, members, CTA and shop components
   data/             Copy and member sources of truth
+  lib/              Storefront API client and shared commerce helpers
   layouts/          Shared document layout
   pages/            Homepage and About routes
   scripts/          Navigation, image fallback and reveal behaviour
@@ -67,9 +68,35 @@ The seven current member filenames are `chowee.png`, `yy.png`, `p-chan.png`, `ge
 
 Approved Traditional Chinese member titles live in `src/data/members.ts`. Other unverified Chinese strings remain marked `[TC copy pending]`; replace those markers only with approved Traditional Chinese copy. The header reserves an EN / 繁中 control for dedicated language routes in a later phase. See `reference/content/README.md`.
 
-## Shopify phase
+## Shopify / Storefront API
 
-`ShopifyPlaceholder.astro` reserves the future integration boundary. Shopify product/card mounting can be added without replacing the existing Header, catalogue layout or pages. Shopify should continue to handle secure checkout and payment.
+The public `/shop/` route still uses the current Shopify Buy Button integration. A hidden test route exists at:
+
+```text
+/shop-storefront-lab-2026/
+```
+
+This route is not linked from navigation and includes `noindex,nofollow`, but it is not private. Anyone with the URL can visit it.
+
+### Required local environment
+
+Copy `.env.example` to `.env` and replace the token:
+
+```text
+PUBLIC_SHOPIFY_DOMAIN=q1h1fd-1k.myshopify.com
+PUBLIC_SHOPIFY_STOREFRONT_TOKEN=replace-with-public-storefront-token
+PUBLIC_SHOPIFY_API_VERSION=2026-04
+```
+
+Only use a public Shopify Storefront API token here. Never place a Shopify Admin API token or private token in these `PUBLIC_` variables.
+
+Recommended Shopify custom app setup:
+
+- App name: `Masta Dan Website Storefront`
+- Grant only the minimum unauthenticated Storefront API scopes needed for product listings, inventory availability if used, cart and checkout.
+- Rotate the token if it is accidentally over-scoped or exposed in the wrong place.
+
+For GitHub Pages deployment, add `PUBLIC_SHOPIFY_STOREFRONT_TOKEN` as a GitHub Actions repository Secret. The workflow already supplies the shop domain and API version.
 
 ## GitHub Pages deployment
 
