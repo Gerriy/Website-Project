@@ -70,13 +70,13 @@ Approved Traditional Chinese member titles live in `src/data/members.ts`. Other 
 
 ## Shopify / Storefront API
 
-The public `/shop/` route still uses the current Shopify Buy Button integration. A hidden test route exists at:
+The public `/shop/` route uses the custom Storefront API implementation. The previous Shopify Buy Button version is archived at:
 
 ```text
-/shop-storefront-lab-2026/
+/shop-buy-button-archive/
 ```
 
-This route is not linked from navigation and includes `noindex,nofollow`, but it is not private. Anyone with the URL can visit it.
+The archive route is not linked from navigation and includes `noindex,nofollow`, but it is not private. Anyone with the URL can visit it.
 
 ### Required local environment
 

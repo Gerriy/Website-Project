@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ShopifyBuyButton from '../components/ShopifyBuyButton.astro';
+---
+
+<BaseLayout
+  title="Shopping Buy Button Archive · Masta Dan"
+  description="Archived Shopify Buy Button shopping page."
+  page="shop"
+  paperMain
+  robots="noindex,nofollow"
+>
+  <section class="page-hero page-hero-compact shell" aria-labelledby="shop-archive-title">
+    <h1 id="shop-archive-title">SHOPPING</h1>
+  </section>
+
+  <ShopifyBuyButton />
+
+  <a class="back-to-top" href="#top" aria-label="Back to top"></a>
+</BaseLayout>

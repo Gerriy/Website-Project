@@ -10,9 +10,8 @@ const { currentPage } = Astro.props;
 const homeHref = withBase('');
 const aboutHref = withBase('about/');
 const shopHref = withBase('shop/');
-const storefrontLabHref = withBase('shop-storefront-lab-2026/');
 const contactHref = currentPage === 'home' ? '#contact' : withBase('index.html#contact');
-const isStorefrontLab = Astro.url.pathname.includes('/shop-storefront-lab-2026');
+const isStorefrontShop = currentPage === 'shop' && !Astro.url.pathname.includes('/shop-buy-button-archive');
 ---
 
 <header class="site-header" id="top" data-header>
@@ -38,13 +37,13 @@ const isStorefrontLab = Astro.url.pathname.includes('/shop-storefront-lab-2026')
         <span aria-current="true">繁中</span><span aria-hidden="true">/</span><span aria-disabled="true" title="English site coming soon">EN <small>Soon</small></span>
       </div>
       <a
-        class:list={{ 'cart-reserve': true, 'cart-reserve-storefront': isStorefrontLab }}
-        href={isStorefrontLab ? storefrontLabHref : shopHref}
-        aria-label={isStorefrontLab ? 'Open shopping cart' : 'Open shopping page'}
-        data-storefront-header-cart={isStorefrontLab ? 'true' : undefined}
+        class:list={{ 'cart-reserve': true, 'cart-reserve-storefront': isStorefrontShop }}
+        href={shopHref}
+        aria-label={isStorefrontShop ? 'Open shopping cart' : 'Open shopping page'}
+        data-storefront-header-cart={isStorefrontShop ? 'true' : undefined}
       >
         <img src={withBase('assets/images/ui/shopping-cart.png')} alt="" aria-hidden="true" />
-        <small data-storefront-cart-count={isStorefrontLab ? 'true' : undefined}>0</small>
+        <small data-storefront-cart-count={isStorefrontShop ? 'true' : undefined}>0</small>
       </a>
     </div>
   </div>

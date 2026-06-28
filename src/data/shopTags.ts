@@ -46,7 +46,12 @@ export const shopTagDefinitions: ShopTagDefinition[] = [
   { shopifyTag: 'VTB', category: 'Theme', displayEn: 'Vtuber', displayCn: 'Vtuber', color: '#c27fe8' },
 ];
 
-const tagMap = new Map(shopTagDefinitions.map((tag) => [tag.shopifyTag.toLowerCase(), tag]));
+const tagMap = new Map<string, ShopTagDefinition>();
+shopTagDefinitions.forEach((tag) => {
+  [tag.shopifyTag, tag.displayEn, tag.displayCn].forEach((alias) => {
+    tagMap.set(alias.toLowerCase(), tag);
+  });
+});
 const categoryPriority: Record<ShopTagCategory, number> = {
   Creator: 0,
   Theme: 1,
