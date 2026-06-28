@@ -93,8 +93,8 @@ button, input, textarea { font: inherit; }
 .home-about-photo-wrap { position: relative; align-self: center; }
 .home-about-photo-wrap .photo-slot { width: 100%; height: 100%; }
 .home-about-decor { position: absolute; z-index: 3; pointer-events: none; user-select: none; filter: drop-shadow(0 6px 8px rgba(78,152,239,.1)); }
-.home-about-decor-highlight { top: -12%; left: -13%; width: 18%; }
-.home-about-decor-starlight { top: -9%; right: -7%; width: 13%; }
+.home-about-decor-highlight { top: -12%; left: -13%; width: 7.2%; }
+.home-about-decor-starlight { top: -9%; right: -7%; width: 5.2%; }
 .prose { max-width: 680px; }
 .prose p { color: var(--muted); }
 .prose .lead { color: var(--ink); font-size: clamp(19px, 2vw, 24px); font-weight: 800; line-height: 1.5; }
