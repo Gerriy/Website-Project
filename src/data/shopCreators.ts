@@ -40,13 +40,18 @@ export const creatorFilters: ShopCreatorFilter[] = [
     collectionId: '319252824111',
   },
   {
-    slug: 'yy',
-    label: 'YY',
-    collectionId: '319252889647',
-  },
-  {
     slug: 'riki',
     label: 'Riki',
     collectionId: '319256920111',
+  },
+  {
+    slug: 'yasaaai',
+    label: 'Yasaaai',
+    collectionId: '319258034223',
+  },
+  {
+    slug: 'yy',
+    label: 'YY',
+    collectionId: '319252889647',
   },
 ];
