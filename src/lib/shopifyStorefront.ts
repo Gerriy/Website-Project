@@ -202,8 +202,15 @@ function normalizeImage(image?: ProductImage | null): ProductImage | null {
   return image;
 }
 
-function normalizeProduct(product: Product): Product {
-  const images = product.images?.filter((image) => image?.url) || [];
+function connectionNodes<T>(value?: T[] | { nodes?: T[] } | null): T[] {
+  if (Array.isArray(value)) return value;
+  if (Array.isArray(value?.nodes)) return value.nodes;
+  return [];
+}
+
+function normalizeProduct(product: any): Product {
+  const images = connectionNodes<ProductImage>(product.images).filter((image) => image?.url);
+  const variants = connectionNodes<ProductVariant>(product.variants).filter((variant) => variant?.id);
   const featuredImage = normalizeImage(product.featuredImage) || images[0] || null;
 
   return {
@@ -211,7 +218,7 @@ function normalizeProduct(product: Product): Product {
     description: product.description || '',
     featuredImage,
     images: images.length ? images : featuredImage ? [featuredImage] : [],
-    variants: product.variants?.filter((variant) => variant?.id) || [],
+    variants,
   };
 }
 
