@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { buildProductTagBadges } from '../../data/shopTags';
 import {
   addCartLine,
   createCart,
@@ -60,6 +61,27 @@ function formatProductPrice(product: Product) {
 
 function firstAvailableVariant(product: Product) {
   return product.variants.find((variant) => variant.availableForSale) || product.variants[0] || null;
+}
+
+function ProductTagList({ tags, compact = false }: { tags?: string[]; compact?: boolean }) {
+  const badges = buildProductTagBadges(tags || []);
+  if (!badges.length) return null;
+
+  return (
+    <div className={`storefront-tags${compact ? ' storefront-tags-compact' : ''}`} aria-label="Product tags">
+      {badges.map((tag) => (
+        <span
+          key={`${tag.category}-${tag.sourceTag}`}
+          className={`storefront-tag storefront-tag-${tag.category.toLowerCase()}`}
+          style={{ '--tag-color': tag.color } as React.CSSProperties}
+          title={`${tag.displayEn} / ${tag.displayCn}`}
+        >
+          <i aria-hidden="true" />
+          <span>{tag.displayEn}</span>
+        </span>
+      ))}
+    </div>
+  );
 }
 
 export default function StorefrontShop({
@@ -396,6 +418,7 @@ export default function StorefrontShop({
                   {!product.availableForSale && <em>暫時售罄</em>}
                 </button>
                 <h2>{product.title}</h2>
+                <ProductTagList tags={product.tags} compact />
                 <p>{formatProductPrice(product)}</p>
                 <button className="primary-button storefront-card-button" type="button" onClick={() => openProduct(product)}>
                   查看詳情
@@ -444,6 +467,7 @@ export default function StorefrontShop({
             </div>
             <div className="storefront-modal-copy">
               <h2 id="storefront-product-title">{activeProduct.title}</h2>
+              <ProductTagList tags={activeProduct.tags} />
               <p className="storefront-price">{selectedVariant ? formatMoney(selectedVariant.price) : formatProductPrice(activeProduct)}</p>
               {activeProduct.description && <p className="storefront-description">{activeProduct.description}</p>}
 
