@@ -1,10 +1,22 @@
 ---
 import { siteCopy } from '../data/siteCopy';
+import { withBase } from '../utils/paths';
 ---
 
 <footer class="site-footer">
   <div class="shell footer-grid">
-    <div><p class="footer-label">{siteCopy.footer.socialLabel}</p><p class="social-dots" aria-label="Social links coming soon">● ● ●</p></div>
+    <div>
+      <p class="footer-label">{siteCopy.footer.socialLabel}</p>
+      <div class="social-links" aria-label="Social media links">
+        <a href="https://www.instagram.com/masta_dan_/" target="_blank" rel="noopener noreferrer" aria-label="Masta Dan Instagram">
+          <img src={withBase('assets/images/social/instagram.webp')} alt="" />
+        </a>
+        <a href="https://www.threads.com/@masta_dan_" target="_blank" rel="noopener noreferrer" aria-label="Masta Dan Threads">
+          <img src={withBase('assets/images/social/threads.webp')} alt="" />
+        </a>
+        <span class="social-dot-placeholder" aria-hidden="true">●</span>
+      </div>
+    </div>
     <div><p class="footer-label">{siteCopy.footer.contactLabel}</p><a href={`mailto:${siteCopy.contact.email}`}>{siteCopy.contact.email}</a></div>
     <p class="footer-message">{siteCopy.footer.message}</p>
   </div>

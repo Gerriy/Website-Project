@@ -45,7 +45,7 @@ export const siteCopy = {
     body: 'Follow our progress, see new character work and find out what we are making next.',
     followLabel: 'Follow us',
     emailLabel: 'Email us',
-    email: 'hello@example.com',
+    email: 'masterdlnm2025@gmail.com',
   },
   about: {
     eyebrow: 'Our small but mighty party',

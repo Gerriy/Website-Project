@@ -218,3 +218,11 @@ if ('IntersectionObserver' in window) {
 document.querySelectorAll('[data-year]').forEach((target) => {
   target.textContent = new Date().getFullYear();
 });
+
+document.querySelectorAll('.back-to-top').forEach((button) => {
+  button.addEventListener('click', (event) => {
+    event.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    history.replaceState(null, '', `${window.location.pathname}${window.location.search}`);
+  });
+});
