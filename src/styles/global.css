@@ -172,12 +172,6 @@ button, input, textarea { font: inherit; }
 .shopify-buy-mount { min-height: 180px; }
 .shopify-status { margin: 18px 0 0; color: var(--muted); text-align: center; font-size: 13px; font-weight: 800; }
 .shopify-status.is-error { color: #c94c65; }
-.shopify-buy__modal { width: min(1180px, 86vw) !important; max-width: 86vw !important; }
-.shopify-buy__modal__content { max-height: 86vh !important; overflow-y: auto !important; }
-.shopify-buy__modal-product { width: 100% !important; }
-.shopify-buy__modal-product .shopify-buy__product-img-wrapper,
-.shopify-buy__modal-product .shopify-buy__carousel { max-width: 100% !important; }
-.shopify-buy__modal-product .shopify-buy__product__variant-img { max-height: 62vh !important; object-fit: contain !important; }
 
 .page-hero { padding-block: clamp(85px, 12vw, 170px); text-align: center; }
 .page-hero-compact { padding-block: clamp(60px, 8vw, 115px) clamp(45px, 6vw, 85px); }
