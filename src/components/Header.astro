@@ -43,7 +43,8 @@ const isStorefrontLab = Astro.url.pathname.includes('/shop-storefront-lab-2026')
         aria-label={isStorefrontLab ? 'Open shopping cart' : 'Open shopping page'}
         data-storefront-header-cart={isStorefrontLab ? 'true' : undefined}
       >
-        <span aria-hidden="true">🛒</span><small data-storefront-cart-count={isStorefrontLab ? 'true' : undefined}>0</small>
+        <img src={withBase('assets/images/ui/shopping-cart.png')} alt="" aria-hidden="true" />
+        <small data-storefront-cart-count={isStorefrontLab ? 'true' : undefined}>0</small>
       </a>
     </div>
   </div>

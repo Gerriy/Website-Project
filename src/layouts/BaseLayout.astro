@@ -40,6 +40,11 @@ const { title, description, page, paperMain = false, robots } = Astro.props;
       <slot />
     </main>
     <Footer />
+    {page !== 'shop' && (
+      <a class="floating-shop-button" href={withBase('shop/')} aria-label="Go to shopping page">
+        <img src={withBase('assets/images/ui/floating-button.png')} alt="" aria-hidden="true" />
+      </a>
+    )}
     <script>
       import '../scripts/site.js';
     </script>
