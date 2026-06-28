@@ -3,6 +3,7 @@ export interface ShopCollection {
   label: string;
   collectionId?: string;
   snippetPath?: string;
+  layout?: 'standard' | 'large';
   isDefault?: boolean;
 }
 
@@ -26,7 +27,12 @@ export const themeCollections: ShopCollection[] = [
   { slug: 'monster-hunter', label: '魔物獵人', snippetPath: '/shopify-snippets/monster-hunter.html' },
   { slug: 'dungeon-meshi', label: '迷宮飯', snippetPath: '/shopify-snippets/dungeon-meshi.html' },
   { slug: 'splatoon', label: '斯普拉遁', snippetPath: '/shopify-snippets/splatoon.html' },
-  { slug: 'legend-of-zelda', label: '薩爾達傳說', snippetPath: '/shopify-snippets/legend-of-zelda.html' },
+  {
+    slug: 'legend-of-zelda',
+    label: '薩爾達傳說',
+    collectionId: '319252725807',
+    layout: 'large',
+  },
   { slug: 'mygo-mujica', label: 'MyGO!!!!! / Ave Mujica', snippetPath: '/shopify-snippets/mygo-mujica.html' },
   { slug: 'project-sekai', label: '世界計畫', snippetPath: '/shopify-snippets/project-sekai.html' },
   { slug: 'vocaloid', label: 'VOCALOID', snippetPath: '/shopify-snippets/vocaloid.html' },
