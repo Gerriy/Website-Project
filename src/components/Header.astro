@@ -10,7 +10,9 @@ const { currentPage } = Astro.props;
 const homeHref = withBase('');
 const aboutHref = withBase('about/');
 const shopHref = withBase('shop/');
+const storefrontLabHref = withBase('shop-storefront-lab-2026/');
 const contactHref = currentPage === 'home' ? '#contact' : withBase('index.html#contact');
+const isStorefrontLab = Astro.url.pathname.includes('/shop-storefront-lab-2026');
 ---
 
 <header class="site-header" id="top" data-header>
@@ -35,7 +37,14 @@ const contactHref = currentPage === 'home' ? '#contact' : withBase('index.html#c
       <div class="language-switch" aria-label="Language selection">
         <span aria-current="true">繁中</span><span aria-hidden="true">/</span><span aria-disabled="true" title="English site coming soon">EN <small>Soon</small></span>
       </div>
-      <a class="cart-reserve" href={shopHref} aria-label="Open shopping page"><span aria-hidden="true">🛒</span><small>0</small></a>
+      <a
+        class:list={{ 'cart-reserve': true, 'cart-reserve-storefront': isStorefrontLab }}
+        href={isStorefrontLab ? storefrontLabHref : shopHref}
+        aria-label={isStorefrontLab ? 'Open shopping cart' : 'Open shopping page'}
+        data-storefront-header-cart={isStorefrontLab ? 'true' : undefined}
+      >
+        <span aria-hidden="true">🛒</span><small data-storefront-cart-count={isStorefrontLab ? 'true' : undefined}>0</small>
+      </a>
     </div>
   </div>
 </header>

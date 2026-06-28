@@ -29,6 +29,9 @@ export interface Product {
   title: string;
   handle: string;
   description: string;
+  productType?: string;
+  vendor?: string;
+  tags?: string[];
   availableForSale: boolean;
   featuredImage?: ProductImage | null;
   images: ProductImage[];
@@ -79,6 +82,9 @@ const PRODUCT_FIELDS = `
   title
   handle
   description
+  productType
+  vendor
+  tags
   availableForSale
   featuredImage {
     id
@@ -302,6 +308,9 @@ export function filterProductsLocally(products: Product[], search: string) {
       product.title,
       product.description,
       product.handle,
+      product.productType || '',
+      product.vendor || '',
+      ...(product.tags || []),
       ...product.variants.map((variant) => variant.title),
     ]
       .join(' ')

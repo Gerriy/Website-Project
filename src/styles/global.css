@@ -185,15 +185,15 @@ button, input, textarea { font: inherit; }
 .storefront-config-warning { margin: 0 auto 20px; max-width: 640px; padding: 18px 22px; color: var(--blue-dark); background: rgba(255,255,255,.82); border: 2px dashed rgba(78,152,239,.48); border-radius: 20px; text-align: center; }
 .storefront-config-warning strong { font-family: var(--display); font-size: 22px; }
 .storefront-config-warning p { margin: 8px 0 0; color: var(--muted); font-size: 13px; }
-.storefront-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(24px, 3vw, 42px); }
-.storefront-card { min-width: 0; text-align: center; }
+.storefront-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: stretch; gap: clamp(24px, 3vw, 42px); }
+.storefront-card { min-width: 0; display: flex; flex-direction: column; text-align: center; }
 .storefront-card-image { position: relative; width: 100%; aspect-ratio: 1 / 1; overflow: hidden; display: grid; place-items: center; color: var(--blue); background: rgba(255,255,255,.68); border: 0; border-radius: 24px; cursor: pointer; box-shadow: 0 14px 30px rgba(53,98,150,.08); }
 .storefront-card-image img { width: 100%; height: 100%; display: block; object-fit: cover; transition: transform .28s ease; }
 .storefront-card-image:hover img, .storefront-card-image:focus-visible img { transform: scale(1.04); }
 .storefront-card-image em { position: absolute; right: 12px; bottom: 12px; padding: 5px 10px; color: #fff; background: rgba(50,59,72,.78); border-radius: 999px; font-size: 12px; font-style: normal; font-weight: 900; }
 .storefront-card h2 { margin: 20px 0 9px; color: var(--blue); font-size: clamp(15px, 1.4vw, 19px); font-weight: 900; line-height: 1.35; }
 .storefront-card p { margin: 0 0 20px; color: var(--muted); font-size: 14px; }
-.storefront-card-button { min-width: 150px; justify-content: center; }
+.storefront-card-button { min-width: 150px; justify-content: center; align-self: center; margin-top: auto; }
 .storefront-load-more { margin-top: 38px; display: flex; justify-content: center; }
 .storefront-cart-toggle { position: fixed; z-index: 70; right: 22px; bottom: 22px; width: 58px; height: 58px; display: grid; place-items: center; color: var(--blue); background: #eff7ff; border: 2px solid #fff; border-radius: 50%; cursor: pointer; box-shadow: 0 10px 30px rgba(31,109,208,.18); }
 .storefront-cart-toggle span { position: absolute; top: 2px; right: 1px; min-width: 18px; height: 18px; display: grid; place-items: center; color: #fff; background: var(--blue); border-radius: 999px; font-size: 10px; font-weight: 900; }

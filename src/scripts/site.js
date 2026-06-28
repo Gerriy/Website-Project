@@ -24,6 +24,20 @@ const updateHeader = () => header?.classList.toggle('is-stuck', window.scrollY >
 updateHeader();
 window.addEventListener('scroll', updateHeader, { passive: true });
 
+document.querySelectorAll('[data-storefront-header-cart]').forEach((cartLink) => {
+  cartLink.addEventListener('click', (event) => {
+    event.preventDefault();
+    window.dispatchEvent(new CustomEvent('masta-dan:cart-requested'));
+  });
+});
+
+window.addEventListener('masta-dan:cart-updated', (event) => {
+  const quantity = Number(event.detail?.quantity || 0);
+  document.querySelectorAll('[data-storefront-cart-count]').forEach((target) => {
+    target.textContent = String(quantity);
+  });
+});
+
 document.querySelectorAll('[data-asset]').forEach((slot) => {
   const image = slot.querySelector('img');
   if (!image) return;

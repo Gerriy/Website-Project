@@ -37,7 +37,7 @@ import { siteCopy } from '../data/siteCopy';
         <p>{siteCopy.contact.body}</p>
         <div class="button-row">
           <a class="button" href="https://www.instagram.com/masta_dan_/" target="_blank" rel="noopener noreferrer">{siteCopy.contact.followLabel}</a>
-          <a class="button button-ghost" href={`mailto:${siteCopy.contact.email}`}>{siteCopy.contact.emailLabel}</a>
+          <a class="button button-ghost" href={siteCopy.contact.emailUrl} target="_blank" rel="noopener noreferrer">{siteCopy.contact.emailLabel}</a>
         </div>
       </div>
       <AssetSlot

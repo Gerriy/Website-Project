@@ -17,7 +17,10 @@ import { withBase } from '../utils/paths';
         <span class="social-dot-placeholder" aria-hidden="true">●</span>
       </div>
     </div>
-    <div><p class="footer-label">{siteCopy.footer.contactLabel}</p><a href={`mailto:${siteCopy.contact.email}`}>{siteCopy.contact.email}</a></div>
+    <div>
+      <p class="footer-label">{siteCopy.footer.contactLabel}</p>
+      <a href={siteCopy.contact.emailUrl} target="_blank" rel="noopener noreferrer">{siteCopy.contact.email}</a>
+    </div>
     <p class="footer-message">{siteCopy.footer.message}</p>
   </div>
   <div class="shell footer-bottom">© <span data-year></span> {siteCopy.footer.copyrightSuffix}</div>

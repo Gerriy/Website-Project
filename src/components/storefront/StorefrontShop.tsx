@@ -209,6 +209,31 @@ export default function StorefrontShop({
       .catch(() => window.localStorage.removeItem(CART_STORAGE_KEY));
   }, [config, configured]);
 
+  useEffect(() => {
+    window.dispatchEvent(
+      new CustomEvent('masta-dan:cart-updated', {
+        detail: {
+          quantity: cart?.totalQuantity || 0,
+          hasItems: Boolean(cart?.lines.length),
+        },
+      }),
+    );
+  }, [cart?.totalQuantity, cart?.lines.length]);
+
+  useEffect(() => {
+    const handleCartRequest = () => {
+      if (cart?.lines.length) {
+        setCartOpen(true);
+        return;
+      }
+
+      document.querySelector('.storefront-shop')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+
+    window.addEventListener('masta-dan:cart-requested', handleCartRequest);
+    return () => window.removeEventListener('masta-dan:cart-requested', handleCartRequest);
+  }, [cart?.lines.length]);
+
   const setFilterMode = (nextMode: FilterMode) => {
     setFilterModeState(nextMode);
     setSelectedSlug('all');
@@ -393,10 +418,6 @@ export default function StorefrontShop({
           </div>
         )}
       </div>
-
-      <button className="storefront-cart-toggle" type="button" onClick={() => setCartOpen(true)} aria-label="Open cart">
-        🛒 <span>{cart?.totalQuantity || 0}</span>
-      </button>
 
       {activeProduct && (
         <div className="storefront-overlay" role="presentation" onMouseDown={(event) => event.target === event.currentTarget && closeProduct()}>

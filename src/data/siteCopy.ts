@@ -46,6 +46,7 @@ export const siteCopy = {
     followLabel: 'Follow us',
     emailLabel: 'Email us',
     email: 'masterdlnm2025@gmail.com',
+    emailUrl: 'https://mail.google.com/mail/?view=cm&fs=1&to=masterdlnm2025%40gmail.com',
   },
   about: {
     eyebrow: 'Our small but mighty party',
