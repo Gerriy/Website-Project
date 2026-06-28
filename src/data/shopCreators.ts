@@ -44,5 +44,9 @@ export const creatorFilters: ShopCreatorFilter[] = [
     label: 'YY',
     collectionId: '319252889647',
   },
-  { slug: 'riki', label: 'Riki' },
+  {
+    slug: 'riki',
+    label: 'Riki',
+    collectionId: '319256920111',
+  },
 ];
