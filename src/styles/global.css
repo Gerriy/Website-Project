@@ -54,12 +54,12 @@ button, input, textarea { font: inherit; }
 .hero-art { width: min(950px, 95%); aspect-ratio: 2.8 / 1; margin-top: -2vw; border: 0 !important; background: transparent !important; box-shadow: none !important; }
 .hero-art img { object-fit: contain; }
 .hero.has-hero-image .hero-art { width: min(1000px, 98%); aspect-ratio: 2 / 1; margin-top: 0; }
-.hero-art .asset-placeholder { border: 2px dashed #a8cef8; border-radius: var(--radius); background: linear-gradient(135deg, rgba(234,245,255,.5), rgba(210,232,255,.35)); }
+.hero-art .asset-placeholder { display: none; }
 .hero-layered .hero-fallback { display: none; }
 .hero-layered .hero-stage.is-unavailable { display: none; }
-.hero-layered .hero-stage.is-unavailable + .hero-fallback { display: grid; }
+.hero-layered .hero-stage.is-unavailable + .hero-fallback { display: none; }
 .hero-stage { position: relative; width: min(1180px, 100%); aspect-ratio: 2 / 1; margin: -14px auto 0; isolation: isolate; }
-.hero-stage-placeholder { position: absolute; inset: 16% 8%; z-index: 0; display: grid; place-items: center; align-content: center; gap: 4px; color: var(--blue-dark); background: linear-gradient(135deg, rgba(234,245,255,.65), rgba(210,232,255,.35)); border: 2px dashed #a8cef8; border-radius: var(--radius); opacity: 1; transition: opacity .25s ease, visibility .25s ease; }
+.hero-stage-placeholder { display: none; }
 .hero-stage-placeholder span { font-family: var(--display); font-weight: 900; text-transform: uppercase; }
 .hero-stage-placeholder small { color: var(--muted); font-size: 12px; }
 .hero-stage.has-ready-layers .hero-stage-placeholder { opacity: 0; visibility: hidden; }
@@ -68,7 +68,7 @@ button, input, textarea { font: inherit; }
 .hero-character img { width: 100%; height: auto; pointer-events: none; user-select: none; filter: drop-shadow(0 18px 18px rgba(52, 88, 130, .1)); animation: mascotFloat var(--hero-duration, 3.8s) ease-in-out infinite; animation-delay: var(--hero-delay, 0s); }
 .hero-character-placeholder { min-height: 82px; padding: 10px; display: none; place-items: center; color: var(--blue-dark); background: rgba(255,255,255,.75); border: 2px dashed var(--blue); border-radius: 999px; font-family: var(--display); font-size: 12px; font-weight: 900; text-transform: uppercase; }
 .hero-character.is-missing img { display: none; }
-.hero-character.is-missing .hero-character-placeholder { display: grid; }
+.hero-character.is-missing .hero-character-placeholder { display: none; }
 .hero-character.is-dragging { z-index: 12; cursor: default; transition: none; filter: brightness(1.06); }
 .hero-character.is-dragging img { animation-play-state: paused; }
 .hero-character.is-returning { transition: transform .36s cubic-bezier(.2, 1.25, .35, 1), filter .18s ease; }
@@ -94,15 +94,17 @@ button, input, textarea { font: inherit; }
 .text-link:hover span { transform: translateX(5px); }
 
 .asset-slot { position: relative; overflow: hidden; display: grid; place-items: center; margin: 0; color: var(--blue-dark); background: rgba(255,255,255,.45); border: 2px dashed rgba(78,152,239,.55); border-radius: var(--radius); }
+.asset-slot:not(.has-image) { background: transparent; border-color: transparent; box-shadow: none; }
 .asset-slot img { position: absolute; z-index: 2; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .5s ease; }
 .asset-slot.has-image img { opacity: 1; }
 .asset-slot.has-image .asset-placeholder { opacity: 0; visibility: hidden; }
-.asset-placeholder { width: 100%; height: 100%; padding: 24px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; transition: opacity .25s; }
+.asset-placeholder { display: none; }
 .asset-placeholder span { font-family: var(--display); font-size: 17px; font-weight: 800; text-transform: uppercase; }
 .asset-placeholder small { margin-top: 5px; color: var(--muted); font-size: 12px; }
 .photo-slot { aspect-ratio: 4 / 3; border: 4px solid #fff; box-shadow: 10px 12px 0 var(--blue), var(--shadow); transform: rotate(-1deg); }
 .contact-art { aspect-ratio: 16 / 10; background: rgba(255,255,255,.3); }
 .contact-art img { object-fit: contain; }
+.asset-slot:not(.has-image) { background: transparent !important; border-color: transparent !important; box-shadow: none !important; }
 
 .member-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 70px clamp(30px, 6vw, 80px); }
 .member-card { text-align: center; }
@@ -148,6 +150,12 @@ button, input, textarea { font: inherit; }
 .shopify-shop-intro { max-width: 760px; margin: 0 auto 42px; text-align: center; }
 .shopify-shop-intro h2 { margin: 0; color: var(--blue); font-family: var(--display); font-size: clamp(34px, 5vw, 64px); font-weight: 900; line-height: 1; text-transform: uppercase; }
 .shopify-shop-intro p:not(.kicker) { max-width: 580px; margin: 18px auto 0; color: var(--muted); }
+.shop-filter-panel { margin: 0 auto 32px; padding: clamp(20px, 3vw, 30px); background: rgba(255,255,255,.62); border: 2px solid #fff; border-radius: 28px; box-shadow: 0 14px 40px rgba(53,98,150,.09); text-align: center; }
+.shop-filter-label { margin: 0 0 16px; color: var(--blue); font-family: var(--display); font-size: clamp(22px, 3vw, 34px); font-weight: 900; letter-spacing: -.035em; line-height: 1; text-transform: uppercase; }
+.shop-filter-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+.shop-filter-button { min-height: 42px; padding: 9px 18px; color: var(--blue-dark); background: rgba(255,255,255,.86); border: 2px solid rgba(78,152,239,.22); border-radius: 999px; cursor: pointer; font-size: 13px; font-weight: 900; letter-spacing: .02em; box-shadow: 0 5px 0 rgba(78,152,239,.08); transition: transform .18s ease, box-shadow .18s ease, color .18s ease, background .18s ease, border-color .18s ease; }
+.shop-filter-button:hover, .shop-filter-button:focus-visible { color: #fff; background: var(--blue); border-color: var(--blue); transform: translateY(-2px); box-shadow: 0 8px 0 rgba(78,152,239,.12); }
+.shop-filter-button[aria-pressed="true"] { color: #fff; background: var(--blue); border-color: var(--blue); box-shadow: 0 8px 0 rgba(78,152,239,.16); }
 .shopify-buy-panel { min-height: 280px; padding: clamp(22px, 4vw, 40px); background: rgba(255,255,255,.72); border: 2px solid #fff; border-radius: 35px; box-shadow: var(--shadow); }
 .shopify-buy-mount { min-height: 180px; }
 .shopify-status { margin: 18px 0 0; color: var(--muted); text-align: center; font-size: 13px; font-weight: 800; }

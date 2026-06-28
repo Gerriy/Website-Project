@@ -1,6 +1,7 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { withBase } from '../utils/paths';
 import '../styles/global.css';
 
 interface Props {
@@ -24,6 +25,8 @@ const { title, description, page, paperMain = false } = Astro.props;
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <title>{title}</title>
+    <link rel="icon" type="image/png" href={withBase('assets/images/brand/logo.png')} />
+    <link rel="apple-touch-icon" href={withBase('assets/images/brand/logo.png')} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800;900&family=Rubik:wght@500;700;900&display=swap" rel="stylesheet" />
