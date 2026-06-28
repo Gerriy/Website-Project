@@ -3,7 +3,6 @@ export interface ShopCollection {
   label: string;
   collectionId?: string;
   snippetPath?: string;
-  layout?: 'standard' | 'large';
   isDefault?: boolean;
 }
 
@@ -31,7 +30,6 @@ export const themeCollections: ShopCollection[] = [
     slug: 'legend-of-zelda',
     label: '薩爾達傳說',
     collectionId: '319252725807',
-    layout: 'large',
   },
   { slug: 'mygo-mujica', label: 'MyGO!!!!! / Ave Mujica', snippetPath: '/shopify-snippets/mygo-mujica.html' },
   { slug: 'project-sekai', label: '世界計畫', snippetPath: '/shopify-snippets/project-sekai.html' },

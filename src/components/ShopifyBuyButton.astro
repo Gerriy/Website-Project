@@ -61,7 +61,7 @@ import { withBase } from '../utils/paths';
           class="shop-filter-button"
           type="button"
           data-shop-creator={creator.slug}
-          aria-pressed="false"
+          aria-pressed={creator.isDefault ? 'true' : 'false'}
         >
           {creator.label}
         </button>
@@ -158,8 +158,8 @@ import { withBase } from '../utils/paths';
       setDropdownOpen(false);
 
       if (mode === 'creator') {
-        clearActiveComponent();
-        setStatus('準備中...');
+        const defaultCreator = creators.find((creator) => creator.isDefault) || creators[0];
+        renderCollection(defaultCreator, 'creator');
         return;
       }
 
@@ -226,24 +226,6 @@ import { withBase } from '../utils/paths';
         return;
       }
 
-      const isLargeLayout = item.layout === 'large';
-      const productLayoutStyles = isLargeLayout
-        ? {
-          'max-width': 'calc(50% - 40px)',
-          'margin-left': '40px',
-          'margin-bottom': '50px',
-          width: 'calc(50% - 40px)',
-        }
-        : {
-          'max-width': 'calc(25% - 20px)',
-          'margin-left': '20px',
-          'margin-bottom': '50px',
-          width: 'calc(25% - 20px)',
-        };
-      const productSetStyles = isLargeLayout
-        ? { 'margin-left': '-40px' }
-        : { 'margin-left': '-20px' };
-
       activeComponent = shopifyUi.createComponent('collection', {
         id: collectionId,
         node: mountNode,
@@ -256,7 +238,12 @@ import { withBase } from '../utils/paths';
             styles: {
               product: {
                 'text-align': 'center',
-                '@media (min-width: 601px)': productLayoutStyles,
+                '@media (min-width: 601px)': {
+                  'max-width': 'calc(25% - 20px)',
+                  'margin-left': '20px',
+                  'margin-bottom': '50px',
+                  width: 'calc(25% - 20px)',
+                },
               },
               img: {
                 height: 'calc(100% - 15px)',
@@ -289,7 +276,7 @@ import { withBase } from '../utils/paths';
           productSet: {
             styles: {
               products: {
-                '@media (min-width: 601px)': productSetStyles,
+                '@media (min-width: 601px)': { 'margin-left': '-20px' },
               },
             },
           },
