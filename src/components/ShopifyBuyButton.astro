@@ -292,9 +292,24 @@ import { withBase } from '../utils/paths';
               product: {
                 '@media (min-width: 601px)': {
                   'max-width': '100%',
+                  width: '100%',
                   'margin-left': '0px',
                   'margin-bottom': '0px',
+                  display: 'grid',
+                  'grid-template-columns': 'minmax(0, 1.25fr) minmax(300px, .75fr)',
+                  gap: '48px',
+                  'align-items': 'center',
                 },
+              },
+              img: {
+                'max-height': '62vh',
+                'object-fit': 'contain',
+              },
+              imgWrapper: {
+                'padding-top': '100%',
+              },
+              imgWithCarousel: {
+                'max-width': '100%',
               },
               button: buttonStyles,
               quantityInput: quantityInputStyles,
@@ -313,7 +328,12 @@ import { withBase } from '../utils/paths';
           },
           modal: {
             styles: {
-              modal: { 'background-color': '#eaf0f8' },
+              modal: {
+                'background-color': '#eaf0f8',
+                width: 'min(1180px, 86vw)',
+                'max-width': '86vw',
+                'min-height': '70vh',
+              },
             },
           },
           cart: {
