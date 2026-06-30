@@ -212,8 +212,9 @@ button, input, textarea { font: inherit; }
 .storefront-cart-toggle { position: fixed; z-index: 70; right: 22px; bottom: 22px; width: 58px; height: 58px; display: grid; place-items: center; color: var(--blue); background: #eff7ff; border: 2px solid #fff; border-radius: 50%; cursor: pointer; box-shadow: 0 10px 30px rgba(31,109,208,.18); }
 .storefront-cart-toggle span { position: absolute; top: 2px; right: 1px; min-width: 18px; height: 18px; display: grid; place-items: center; color: #fff; background: var(--blue); border-radius: 999px; font-size: 10px; font-weight: 900; }
 .storefront-overlay { position: fixed; z-index: 110; inset: 0; padding: min(5vw, 55px); display: grid; place-items: center; background: rgba(8,10,14,.58); }
-.storefront-modal { position: relative; width: min(1120px, 100%); max-height: min(780px, 90vh); overflow: auto; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(300px, .9fr); gap: clamp(28px, 5vw, 64px); padding: clamp(26px, 4vw, 54px); background: #eaf0f8; border: 2px solid #fff; border-radius: 32px; box-shadow: 0 24px 80px rgba(0,0,0,.24); }
-.storefront-close { position: absolute; top: 14px; right: 16px; width: 42px; height: 42px; color: #4c4c4c; background: #fff; border: 2px solid rgba(78,152,239,.22); border-radius: 50%; cursor: pointer; font-size: 28px; line-height: 1; }
+.storefront-modal { position: relative; width: min(1120px, 100%); max-height: min(780px, 90vh); overflow: hidden; padding: clamp(26px, 4vw, 54px); background: #eaf0f8; border: 2px solid #fff; border-radius: 32px; box-shadow: 0 24px 80px rgba(0,0,0,.24); }
+.storefront-modal-body { max-height: calc(min(780px, 90vh) - clamp(52px, 8vw, 108px)); overflow: auto; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(300px, .9fr); gap: clamp(28px, 5vw, 64px); padding-right: 14px; scrollbar-gutter: stable; }
+.storefront-close { position: absolute; z-index: 2; top: 14px; right: 16px; width: 42px; height: 42px; color: #4c4c4c; background: #fff; border: 2px solid rgba(78,152,239,.22); border-radius: 50%; cursor: pointer; font-size: 28px; line-height: 1; }
 .storefront-modal-gallery > img, .storefront-image-placeholder { width: 100%; aspect-ratio: 1 / 1; display: grid; place-items: center; object-fit: contain; background: rgba(255,255,255,.62); border-radius: 24px; }
 .storefront-thumbs { margin-top: 14px; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
 .storefront-thumbs button { width: 66px; height: 66px; padding: 0; overflow: hidden; background: #fff; border: 2px solid transparent; border-radius: 14px; cursor: pointer; }
@@ -223,19 +224,19 @@ button, input, textarea { font: inherit; }
 .storefront-modal-copy h2 { margin: 0 0 18px; color: #4c4c4c; font-size: clamp(25px, 3.4vw, 42px); line-height: 1.18; }
 .storefront-price { margin: 0 0 18px; color: var(--muted); font-size: 18px; font-weight: 800; }
 .storefront-description { max-height: 140px; overflow: auto; margin: 0 0 22px; color: #69717d; line-height: 1.8; }
-.storefront-modal,
+.storefront-modal-body,
 .storefront-description,
 .storefront-cart-lines {
   scrollbar-width: thin;
   scrollbar-color: rgba(78,152,239,.78) rgba(255,255,255,.38);
 }
-.storefront-modal::-webkit-scrollbar,
+.storefront-modal-body::-webkit-scrollbar,
 .storefront-description::-webkit-scrollbar,
 .storefront-cart-lines::-webkit-scrollbar {
   width: 10px;
   height: 10px;
 }
-.storefront-modal::-webkit-scrollbar {
+.storefront-modal-body::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
@@ -244,29 +245,29 @@ button, input, textarea { font: inherit; }
   width: 8px;
   height: 8px;
 }
-.storefront-modal::-webkit-scrollbar-track,
+.storefront-modal-body::-webkit-scrollbar-track,
 .storefront-description::-webkit-scrollbar-track,
 .storefront-cart-lines::-webkit-scrollbar-track {
   background: rgba(255,255,255,.38);
   border-radius: 999px;
 }
-.storefront-modal::-webkit-scrollbar-track {
-  margin-block: 28px;
+.storefront-modal-body::-webkit-scrollbar-track {
+  margin-block: 6px;
   background: transparent;
 }
-.storefront-modal::-webkit-scrollbar-thumb,
+.storefront-modal-body::-webkit-scrollbar-thumb,
 .storefront-description::-webkit-scrollbar-thumb,
 .storefront-cart-lines::-webkit-scrollbar-thumb {
   background: linear-gradient(180deg, #6eb0ff, var(--blue));
   border: 2px solid rgba(255,255,255,.72);
   border-radius: 999px;
 }
-.storefront-modal::-webkit-scrollbar-thumb:hover,
+.storefront-modal-body::-webkit-scrollbar-thumb:hover,
 .storefront-description::-webkit-scrollbar-thumb:hover,
 .storefront-cart-lines::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(180deg, #4e98ef, #1f6dd0);
 }
-.storefront-modal::-webkit-scrollbar-button,
+.storefront-modal-body::-webkit-scrollbar-button,
 .storefront-description::-webkit-scrollbar-button,
 .storefront-cart-lines::-webkit-scrollbar-button {
   width: 0;
@@ -274,7 +275,7 @@ button, input, textarea { font: inherit; }
   background: transparent;
   display: none;
 }
-.storefront-modal::-webkit-scrollbar-button:single-button,
+.storefront-modal-body::-webkit-scrollbar-button:single-button,
 .storefront-description::-webkit-scrollbar-button:single-button,
 .storefront-cart-lines::-webkit-scrollbar-button:single-button {
   width: 0;
@@ -372,7 +373,7 @@ button, input, textarea { font: inherit; }
   .product-grid { grid-template-columns: repeat(2, 1fr); }
   .product-card:last-child { grid-column: 1 / -1; width: calc(50% - 12px); justify-self: center; }
   .storefront-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .storefront-modal { grid-template-columns: 1fr; align-content: start; }
+  .storefront-modal-body { grid-template-columns: 1fr; align-content: start; }
   .storefront-modal-copy { align-self: start; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
   .footer-message { grid-column: 1 / -1; text-align: left; }
@@ -407,6 +408,7 @@ button, input, textarea { font: inherit; }
   .storefront-grid { grid-template-columns: 1fr; gap: 34px; }
   .storefront-overlay { padding: 14px; align-items: end; }
   .storefront-modal { max-height: 92vh; padding: 24px 18px; border-radius: 24px 24px 0 0; }
+  .storefront-modal-body { max-height: calc(92vh - 48px); padding-right: 10px; }
   .storefront-close { top: 10px; right: 10px; }
   .storefront-modal-copy h2 { padding-right: 36px; }
   .storefront-cart-toggle { right: 16px; bottom: 16px; }

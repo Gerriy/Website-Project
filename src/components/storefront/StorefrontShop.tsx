@@ -447,6 +447,7 @@ export default function StorefrontShop({
             <button className="storefront-close" type="button" onClick={closeProduct} aria-label="Close product detail">
               ×
             </button>
+            <div className="storefront-modal-body">
             <div className="storefront-modal-gallery">
               {activeImageUrl ? <img src={activeImageUrl} alt={activeProduct.title} /> : <div className="storefront-image-placeholder">Image pending</div>}
               {activeProduct.images.length > 1 && (
@@ -514,6 +515,7 @@ export default function StorefrontShop({
                 {!selectedVariant?.availableForSale ? '暫時售罄' : cartBusy ? '加入中…' : '加入購物車'}
               </button>
               {cartMessage && <p className="shopify-status is-error">{cartMessage}</p>}
+            </div>
             </div>
           </section>
         </div>
