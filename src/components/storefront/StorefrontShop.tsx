@@ -468,7 +468,11 @@ export default function StorefrontShop({
               <h2 id="storefront-product-title">{activeProduct.title}</h2>
               <ProductTagList tags={activeProduct.tags} />
               <p className="storefront-price">{selectedVariant ? formatMoney(selectedVariant.price) : formatProductPrice(activeProduct)}</p>
-              {activeProduct.description && <p className="storefront-description">{activeProduct.description}</p>}
+              {activeProduct.descriptionHtml ? (
+                <div className="storefront-description" dangerouslySetInnerHTML={{ __html: activeProduct.descriptionHtml }} />
+              ) : (
+                activeProduct.description && <p className="storefront-description">{activeProduct.description}</p>
+              )}
 
               {activeProduct.variants.length > 1 && (
                 <label className="storefront-select">

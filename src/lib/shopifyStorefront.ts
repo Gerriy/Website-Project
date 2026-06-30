@@ -29,6 +29,7 @@ export interface Product {
   title: string;
   handle: string;
   description: string;
+  descriptionHtml: string;
   productType?: string;
   vendor?: string;
   tags?: string[];
@@ -82,6 +83,7 @@ const PRODUCT_FIELDS = `
   title
   handle
   description
+  descriptionHtml
   productType
   vendor
   tags
@@ -222,6 +224,7 @@ function normalizeProduct(product: any): Product {
   return {
     ...product,
     description: product.description || '',
+    descriptionHtml: product.descriptionHtml || '',
     featuredImage,
     images: images.length ? images : featuredImage ? [featuredImage] : [],
     variants,

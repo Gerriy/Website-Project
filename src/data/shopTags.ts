@@ -25,13 +25,13 @@ export interface ProductTagBadge {
  */
 export const shopTagDefinitions: ShopTagDefinition[] = [
   { shopifyTag: 'Ahua', category: 'Creator', displayEn: 'Ahua', displayCn: 'Ahua', color: '#f6a6c8' },
-  { shopifyTag: 'Chow', category: 'Creator', displayEn: 'Chowee', displayCn: 'Chow', color: '#98d96f' },
+  { shopifyTag: 'Chow', category: 'Creator', displayEn: 'Chowee', displayCn: 'Chow', color: '#d4edbc' },
   { shopifyTag: 'Gerri', category: 'Creator', displayEn: 'Gerri', displayCn: 'Gerry', color: '#7fd7f4' },
   { shopifyTag: 'MastaDan', category: 'Creator', displayEn: 'MastaDan', displayCn: 'MastaDan', color: '#4e98ef' },
-  { shopifyTag: 'P', category: 'Creator', displayEn: 'P-Chan', displayCn: 'P-Chan', color: '#e84f5f' },
+  { shopifyTag: 'P', category: 'Creator', displayEn: 'P-Chan', displayCn: 'P-Chan', color: '#b4beeb' },
   { shopifyTag: 'Riki', category: 'Creator', displayEn: 'Riki', displayCn: 'Riki', color: '#63676a' },
   { shopifyTag: 'YY', category: 'Creator', displayEn: 'YY', displayCn: 'YY', color: '#ffbd5a' },
-  { shopifyTag: 'Yasaaai', category: 'Creator', displayEn: 'Yasaaai', displayCn: 'Yasaaai', color: '#85d99c' },
+  { shopifyTag: 'Yasaaai', category: 'Creator', displayEn: 'Yasaaai', displayCn: 'Yasaaai', color: '#b6e2dc' },
   { shopifyTag: 'BA', category: 'Theme', displayEn: 'Blue Archive', displayCn: '蔚藍檔案', color: '#55aee8' },
   { shopifyTag: 'MH', category: 'Theme', displayEn: 'Monster Hunter', displayCn: '魔物獵人', color: '#7d9b57' },
   { shopifyTag: 'DM', category: 'Theme', displayEn: 'Dungeon Meshi', displayCn: '迷宮飯', color: '#d8914f' },
