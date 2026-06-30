@@ -223,6 +223,48 @@ button, input, textarea { font: inherit; }
 .storefront-modal-copy h2 { margin: 0 0 18px; color: #4c4c4c; font-size: clamp(25px, 3.4vw, 42px); line-height: 1.18; }
 .storefront-price { margin: 0 0 18px; color: var(--muted); font-size: 18px; font-weight: 800; }
 .storefront-description { max-height: 140px; overflow: auto; margin: 0 0 22px; color: #69717d; line-height: 1.8; }
+.storefront-modal,
+.storefront-description,
+.storefront-cart-lines {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(78,152,239,.78) rgba(255,255,255,.38);
+}
+.storefront-modal::-webkit-scrollbar,
+.storefront-description::-webkit-scrollbar,
+.storefront-cart-lines::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+.storefront-description::-webkit-scrollbar,
+.storefront-cart-lines::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.storefront-modal::-webkit-scrollbar-track,
+.storefront-description::-webkit-scrollbar-track,
+.storefront-cart-lines::-webkit-scrollbar-track {
+  background: rgba(255,255,255,.38);
+  border-radius: 999px;
+}
+.storefront-modal::-webkit-scrollbar-thumb,
+.storefront-description::-webkit-scrollbar-thumb,
+.storefront-cart-lines::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #6eb0ff, var(--blue));
+  border: 2px solid rgba(255,255,255,.72);
+  border-radius: 999px;
+}
+.storefront-modal::-webkit-scrollbar-thumb:hover,
+.storefront-description::-webkit-scrollbar-thumb:hover,
+.storefront-cart-lines::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #4e98ef, #1f6dd0);
+}
+.storefront-modal::-webkit-scrollbar-button,
+.storefront-description::-webkit-scrollbar-button,
+.storefront-cart-lines::-webkit-scrollbar-button {
+  width: 0;
+  height: 0;
+  display: none;
+}
 .storefront-select, .storefront-quantity { margin: 0 0 16px; display: grid; gap: 8px; color: var(--blue-dark); font-size: 13px; font-weight: 900; }
 .storefront-select select, .storefront-quantity input { min-height: 48px; padding: 0 16px; color: #4c4c4c; background: #fff; border: 2px solid rgba(78,152,239,.22); border-radius: 16px; }
 .storefront-quantity input { width: 120px; }
