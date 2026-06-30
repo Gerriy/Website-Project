@@ -235,6 +235,10 @@ button, input, textarea { font: inherit; }
   width: 10px;
   height: 10px;
 }
+.storefront-modal::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
 .storefront-description::-webkit-scrollbar,
 .storefront-cart-lines::-webkit-scrollbar {
   width: 8px;
@@ -245,6 +249,10 @@ button, input, textarea { font: inherit; }
 .storefront-cart-lines::-webkit-scrollbar-track {
   background: rgba(255,255,255,.38);
   border-radius: 999px;
+}
+.storefront-modal::-webkit-scrollbar-track {
+  margin-block: 28px;
+  background: transparent;
 }
 .storefront-modal::-webkit-scrollbar-thumb,
 .storefront-description::-webkit-scrollbar-thumb,
@@ -263,6 +271,15 @@ button, input, textarea { font: inherit; }
 .storefront-cart-lines::-webkit-scrollbar-button {
   width: 0;
   height: 0;
+  background: transparent;
+  display: none;
+}
+.storefront-modal::-webkit-scrollbar-button:single-button,
+.storefront-description::-webkit-scrollbar-button:single-button,
+.storefront-cart-lines::-webkit-scrollbar-button:single-button {
+  width: 0;
+  height: 0;
+  background: transparent;
   display: none;
 }
 .storefront-select, .storefront-quantity { margin: 0 0 16px; display: grid; gap: 8px; color: var(--blue-dark); font-size: 13px; font-weight: 900; }
